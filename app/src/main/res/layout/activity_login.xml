@@ -4,21 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
+    android:background="@color/white"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="16dp"
         tools:context=".ui.activity.app.LoginActivity">
 
         <EditText
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_edt"
             android:drawableStart="@drawable/ic_email"
             android:drawablePadding="8dp"
             android:hint="@string/e_mail"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textColor="@color/primary_text_color"
+            android:drawableTint="@color/primary_color"
+            android:textColorHint="@color/secondary_text"
             app:layout_constraintBottom_toTopOf="@+id/edtSenha"
             app:layout_constraintEnd_toEndOf="@+id/edtSenha"
             app:layout_constraintHorizontal_bias="0.5"
@@ -31,9 +38,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@drawable/bg_edt"
             android:drawableStart="@drawable/ic_key"
             android:drawablePadding="8dp"
             android:hint="@string/senha"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:drawableTint="@color/primary_color"
+            android:textColor="@color/primary_text_color"
+            android:textColorHint="@color/secondary_text"
             app:layout_constraintBottom_toTopOf="@+id/btnEsqueciSenha"
             app:layout_constraintEnd_toEndOf="@+id/btnEsqueciSenha"
             app:layout_constraintHorizontal_bias="0.5"
@@ -46,8 +59,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Esqueceu a senha?"
+            android:text="@string/esqueceu_a_senha"
+            android:textColor="@color/primary_text_color"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btnLogin"
             app:layout_constraintHorizontal_bias="0.5"
@@ -55,13 +70,19 @@
             app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
 
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:padding="16dp"
+            android:background="@drawable/bg_btn"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="1dp"
             android:text="@string/entrar"
+            android:textAllCaps="false"
+            android:textColor="@color/text_icon"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -72,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:indeterminateTint="@color/accent_color"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,13 +114,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ainda_n_o_tem_conta" />
+                android:text="@string/ainda_n_o_tem_conta"
+                android:textColor="@color/primary_text_color"
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/btnCriarConta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/criar_conta" />
+                android:text="@string/criar_conta"
+                android:textColor="@color/accent_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,4 +6,6 @@
     <string name="criar_conta">Criar Conta</string>
     <string name="ainda_n_o_tem_conta">Ainda não tem conta?</string>
     <string name="texto_recuperar_senha">Informe seu e-mail que enviaremos \num link para alteração de senha</string>
+    <string name="esqueceu_a_senha">Esqueceu a senha?</string>
+    <string name="enviar_e_mail_senha">Enviar E-mail</string>
 </resources>

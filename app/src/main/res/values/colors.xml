@@ -8,9 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="bg">#FFD766</color>
-    <color name="verde">#91CF27</color>
-    <color name="vermelho">#E41F2D</color>
-    <color name="azul_cinza">#50808E</color>
-    <color name="marrom">#3C1518</color>
+    <color name="dark_primary_color">#388E3C</color>
+    <color name="light_primary_color">#C8E6C9</color>
+    <color name="primary_color">#4CAF50</color>
+    <color name="text_icon">#FFFFFF</color>
+    <color name="accent_color">#FF5252</color>
+    <color name="accent_color_light">#FF7B7B</color>
+    <color name="primary_text_color">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="divider_color">#BDBDBD</color>
 </resources>
