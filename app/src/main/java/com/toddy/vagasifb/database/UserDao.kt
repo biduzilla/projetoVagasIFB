@@ -18,9 +18,9 @@ class UserDao {
         userCriado: (userCriado: User?) -> Unit
     ) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
-            .addOnCompleteListener { result ->
-                if (result.isSuccessful) {
-                    result.result.user?.let { FirebaseUser ->
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    task.result.user?.let { FirebaseUser ->
                         val idUser = FirebaseUser.uid
                         userCriado(
                             User(
@@ -34,7 +34,7 @@ class UserDao {
                 } else {
                     Toast.makeText(
                         context,
-                        FireBaseHelper.validaErros(result.exception.toString()),
+                        FireBaseHelper.validaErros(task.exception.toString()),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -47,5 +47,24 @@ class UserDao {
             .child("empregador")
             .child(user.id)
             .setValue(user)
+    }
+
+    fun recuperarConta(context: Context, email: String) {
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        context,
+                        "E-mail para trocar de senha enviado",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        FireBaseHelper.validaErros(task.exception.toString()),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 }

@@ -50,7 +50,6 @@ class CadastroUserActivity : AppCompatActivity() {
                     progressBar.visibility = View.VISIBLE
                     btnLogin.visibility = View.GONE
                     salvarUser(email, senha)
-
                 }
             }
         }
