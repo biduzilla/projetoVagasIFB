@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "787266567328",
+    "project_id": "vagasifb",
+    "storage_bucket": "vagasifb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787266567328:android:60bb7f1b8d8463fc06ddc5",
+        "android_client_info": {
+          "package_name": "com.toddy.vagasifb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787266567328-ikethsuas0m698qasm24flklo1cc9j2f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.toddy.vagasifb",
+            "certificate_hash": "6224396519a213e903b9d6d3da7b87636e584b7c"
+          }
+        },
+        {
+          "client_id": "787266567328-l31tulda1f5o9mikcfjsjm1chiougsnf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUDu_To_zT9wIyGFwPAOeKq0nE43i9NJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787266567328-l31tulda1f5o9mikcfjsjm1chiougsnf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
