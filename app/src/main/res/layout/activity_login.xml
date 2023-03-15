@@ -12,46 +12,34 @@
         android:layout_height="match_parent"
         tools:context=".ui.activity.app.LoginActivity">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputEmail"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <EditText
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            app:layout_constraintBottom_toTopOf="@+id/inputSenha"
-            app:layout_constraintEnd_toEndOf="@+id/inputSenha"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="8dp"
+            android:hint="@string/e_mail"
+            app:layout_constraintBottom_toTopOf="@+id/edtSenha"
+            app:layout_constraintEnd_toEndOf="@+id/edtSenha"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/inputSenha"
+            app:layout_constraintStart_toStartOf="@+id/edtSenha"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:startIconDrawable="@drawable/ic_email">
+            app:layout_constraintVertical_chainStyle="packed" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/e_mail" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputSenha"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <EditText
+            android:id="@+id/edtSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/ic_key"
+            android:drawablePadding="8dp"
+            android:hint="@string/senha"
             app:layout_constraintBottom_toTopOf="@+id/btnEsqueciSenha"
             app:layout_constraintEnd_toEndOf="@+id/btnEsqueciSenha"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/btnEsqueciSenha"
-            app:layout_constraintTop_toBottomOf="@+id/inputEmail"
-            app:startIconDrawable="@drawable/ic_key">
+            app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtSenha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/senha" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/btnEsqueciSenha"
@@ -59,11 +47,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Esqueceu a senha?"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btnLogin"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/btnLogin"
-            app:layout_constraintTop_toBottomOf="@+id/inputSenha" />
+            app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
 
 
         <Button
@@ -78,30 +67,38 @@
             app:layout_constraintStart_toStartOf="@+id/linearLayout"
             app:layout_constraintTop_toBottomOf="@+id/btnEsqueciSenha" />
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnEsqueciSenha"
+            tools:visibility="visible" />
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="90dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-            tools:layout_editor_absoluteX="28dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnEsqueciSenha">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ainda não tem conta? " />
+                android:text="@string/ainda_n_o_tem_conta" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Criar Conta" />
-
-
+                android:layout_marginStart="8dp"
+                android:text="@string/criar_conta" />
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
