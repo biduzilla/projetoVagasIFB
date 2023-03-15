@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.toddy.vagasifb.model.User
 import com.toddy.vagasifb.extensions.iniciaActivity
+import com.toddy.vagasifb.ui.activity.MainActivity
 import com.toddy.vagasifb.ui.activity.app.LoginActivity
 import com.toddy.vagasifb.utils.FireBaseHelper
 
@@ -58,6 +59,21 @@ class UserDao {
                         "E-mail para trocar de senha enviado",
                         Toast.LENGTH_SHORT
                     ).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        FireBaseHelper.validaErros(task.exception.toString()),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+    }
+
+    fun login(context: Context, email: String, senha: String) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    context.iniciaActivity(MainActivity::class.java)
                 } else {
                     Toast.makeText(
                         context,

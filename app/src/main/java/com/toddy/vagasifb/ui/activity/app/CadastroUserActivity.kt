@@ -17,7 +17,7 @@ class CadastroUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        binding.toolbarVoltar.tvTitulo.text = "Criar Conta"
         configClick()
     }
 

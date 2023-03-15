@@ -1,79 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <include
-        android:id="@+id/toolbarVoltar"
-        layout="@layout/toolbar_voltar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarVoltar">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <EditText
-            android:id="@+id/edtEmail"
+        <include
+            android:id="@+id/toolbarVoltar"
+            layout="@layout/toolbar_voltar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_edt"
-            android:drawableStart="@drawable/ic_email"
-            android:drawablePadding="8dp"
-            android:drawableTint="@color/primary_color"
-            android:hint="@string/e_mail"
-            android:inputType="textEmailAddress"
-            android:padding="16dp"
-            android:textColor="@color/primary_text_color"
-            android:textColorHint="@color/secondary_text" />
+            android:layout_margin="32dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarVoltar">
 
-        <EditText
-            android:id="@+id/edtSenha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_edt"
-            android:drawableStart="@drawable/ic_key"
-            android:drawablePadding="8dp"
-            android:drawableTint="@color/primary_color"
-            android:hint="@string/senha"
-            android:inputType="textPassword"
-            android:padding="16dp"
-            android:textColor="@color/primary_text_color"
-            android:textColorHint="@color/secondary_text" />
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edt"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_color"
+                android:hint="@string/e_mail"
+                android:inputType="textEmailAddress"
+                android:padding="16dp"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text" />
 
-
-        <android.widget.Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_btn"
-            android:padding="16dp"
-            android:text="@string/criar_conta"
-            android:textAllCaps="false"
-            android:textColor="@color/text_icon"
-            android:textSize="20sp" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:indeterminateTint="@color/accent_color"
-            android:visibility="gone"
-            tools:visibility="visible" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edtSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_edt"
+                android:drawableStart="@drawable/ic_key"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_color"
+                android:hint="@string/senha"
+                android:inputType="textPassword"
+                android:padding="16dp"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <android.widget.Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_btn"
+                android:padding="16dp"
+                android:text="@string/criar_conta"
+                android:textAllCaps="false"
+                android:textColor="@color/text_icon"
+                android:textSize="20sp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:indeterminateTint="@color/accent_color"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+
