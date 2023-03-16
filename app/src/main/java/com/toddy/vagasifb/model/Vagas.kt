@@ -5,12 +5,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Vaga(
-    val id: String,
-    val cargo: String,
-    val empresa: String,
-    val descricao: String,
-    val horario: String,
-    val dataPostada: Long,
-    val requisitos: List<String>,
-    val imagem: String
+    var id: String,
+    var cargo: String,
+    var empresa: String,
+    var descricao: String,
+    var horario: String,
+    var dataPostada: Long,
+    var requisitos: List<String>,
+    var imagem: String
 ) : Parcelable
+

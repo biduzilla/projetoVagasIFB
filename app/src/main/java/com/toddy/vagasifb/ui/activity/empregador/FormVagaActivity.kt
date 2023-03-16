@@ -15,12 +15,19 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.toddy.vagasifb.R
+import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityFormVagaBinding
 import com.toddy.vagasifb.databinding.BottomSheetFormVagaBinding
+import com.toddy.vagasifb.model.Vaga
 import com.toddy.vagasifb.ui.activity.ABRIR_CAMERA
 import com.toddy.vagasifb.ui.activity.ABRIR_GALERIA
 import java.io.File
@@ -37,6 +44,8 @@ class FormVagaActivity : AppCompatActivity() {
     private lateinit var currentPhotoPath: String
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var resultCode: String = ""
+    private var vaga: Vaga? = null
+    private var caminhoImagem: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,8 +104,48 @@ class FormVagaActivity : AppCompatActivity() {
                     edtRequisitos.requestFocus()
                     edtRequisitos.error = "Coloque vírgula no final de cada requisito"
                 }
+                caminhoImagem == null -> {
+                    Toast.makeText(
+                        this@FormVagaActivity,
+                        "Precisa adicionar a imagem da vaga para poder salvar",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
                 else -> {
-                    Toast.makeText(this@FormVagaActivity, "ok", Toast.LENGTH_SHORT).show()
+                    btnSalvar.visibility = View.GONE
+                    progressBar.visibility = View.VISIBLE
+
+                    if (vaga == null) vaga = Vaga("", "", "", "", "", 0L, emptyList(), "")
+
+                    vaga?.let { vaga ->
+                        FirebaseDatabase.getInstance().reference.apply {
+                            push().key?.let { id ->
+                                vaga.id = id
+                                salvarImagemFirebase(id)
+                            }
+                        }
+                        vaga.cargo = cargo
+                        vaga.empresa = empresa
+                        vaga.descricao = descricao
+                        vaga.horario = horario
+                        vaga.requisitos = requisitos.split(",").toList()
+                        vaga.imagem = caminhoImagem!!
+
+                        VagaDao().salvarVagaUser(vaga, this@FormVagaActivity, true)
+
+                        btnSalvar.visibility = View.VISIBLE
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+        }
+    }
+
+    private fun salvarImagemFirebase(idVaga: String) {
+        caminhoImagem?.let {
+            VagaDao().salvarImagemVagaFirebase(it, idVaga, this) { url ->
+                url?.let {
+                    vaga!!.imagem = url
                 }
             }
         }
@@ -208,17 +257,18 @@ class FormVagaActivity : AppCompatActivity() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == Activity.RESULT_OK) {
 
-                    val caminhoImagem: String
-
                     when (resultCode) {
                         ABRIR_CAMERA -> {
                             val file = File(currentPhotoPath)
-                            caminhoImagem = file.toURI().toString()
                             binding.imgAdd.visibility = View.GONE
                             binding.imgVagaImg.setImageURI(Uri.fromFile(file))
+                            caminhoImagem = file.toURI().toString()
                         }
+
                         ABRIR_GALERIA -> {
+
                             val imagemSelecionada: Uri = it.data!!.data!!
+                            caminhoImagem = imagemSelecionada.toString()
 
                             val bitmap: Bitmap = if (Build.VERSION.SDK_INT < 28) {
                                 MediaStore.Images.Media.getBitmap(
@@ -233,6 +283,7 @@ class FormVagaActivity : AppCompatActivity() {
                             binding.imgAdd.visibility = View.GONE
                             binding.imgVagaImg.setImageBitmap(bitmap)
                         }
+
                         else -> Toast.makeText(
                             this,
                             "Error carregar imagem selecionada",
