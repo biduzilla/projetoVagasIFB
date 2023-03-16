@@ -1,11 +1,14 @@
 package com.toddy.vagasifb.ui.activity.empregador
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toddy.vagasifb.databinding.ActivityEmpregadorMainBinding
+import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
 import com.toddy.vagasifb.ui.activity.Constants
+import com.toddy.vagasifb.ui.activity.app.DetalhesVagaActivity
 import com.toddy.vagasifb.ui.adapter.VagasAdapter
 
 class EmpregadorMainActivity : AppCompatActivity() {
@@ -21,14 +24,14 @@ class EmpregadorMainActivity : AppCompatActivity() {
         setContentView(binding.root)
         configRv()
         configClicks()
-
+        binding.toolbarSair.tvTitulo.text = "Minhas Vagas"
         adapter.atualiza(Constants.vagasList)
 
     }
 
     private fun configClicks() {
         binding.fabAdd.setOnClickListener {
-            Toast.makeText(this, Constants.vagasList.toString(), Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, Constants.vagasList.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -38,8 +41,10 @@ class EmpregadorMainActivity : AppCompatActivity() {
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(this)
         adapter.onClick = {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            Intent(this, DetalhesVagaActivity::class.java).apply {
+                putExtra(CHAVE_VAGA_ID,it)
+                startActivity(this)
+            }
         }
-
     }
 }
