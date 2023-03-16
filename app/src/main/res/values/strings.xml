@@ -17,4 +17,7 @@
     <string name="descricao">Descrição</string>
     <string name="horario">Horário</string>
     <string name="salvar_vaga">Salvar Vaga</string>
+    <string name="camera">Câmera</string>
+    <string name="galeria">Galeria</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

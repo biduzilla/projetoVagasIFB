@@ -25,6 +25,14 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyleWrapper</item>
+    </style>
+
+    <style name="BottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
     <style name="Theme.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!--        <item name="colorPrimaryVariant">@color/white</item>-->
         <item name="android:statusBarColor">@color/white</item>

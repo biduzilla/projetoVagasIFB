@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/text_icon"
     tools:context=".ui.activity.empregador.FormVagaActivity">
 
     <include
@@ -31,10 +32,11 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_marginTop="16dp"
                 android:id="@+id/btnAddImg"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/text_icon"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="8dp">
 
@@ -50,7 +52,8 @@
                     android:id="@+id/imgVagaImg"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
             <EditText

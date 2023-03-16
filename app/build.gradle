@@ -64,4 +64,7 @@ dependencies {
     implementation "io.coil-kt:coil:1.2.2"
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+
+    //https://github.com/ParkSangGwon/TedPermission
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
 }
