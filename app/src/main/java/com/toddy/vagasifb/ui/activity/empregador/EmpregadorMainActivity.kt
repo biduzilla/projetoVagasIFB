@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toddy.vagasifb.databinding.ActivityEmpregadorMainBinding
+import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
 import com.toddy.vagasifb.ui.activity.Constants
 import com.toddy.vagasifb.ui.activity.app.DetalhesVagaActivity
@@ -31,7 +32,7 @@ class EmpregadorMainActivity : AppCompatActivity() {
 
     private fun configClicks() {
         binding.fabAdd.setOnClickListener {
-//            Toast.makeText(this, Constants.vagasList.toString(), Toast.LENGTH_SHORT).show()
+            iniciaActivity(FormVagaActivity::class.java)
         }
     }
 
@@ -42,7 +43,7 @@ class EmpregadorMainActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this)
         adapter.onClick = {
             Intent(this, DetalhesVagaActivity::class.java).apply {
-                putExtra(CHAVE_VAGA_ID,it)
+                putExtra(CHAVE_VAGA_ID, it)
                 startActivity(this)
             }
         }
