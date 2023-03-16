@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.empregador.FormVagaActivity">
+
+    <include
+        android:id="@+id/toolbarVoltar"
+        layout="@layout/toolbar_voltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarVoltar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="16dp"
+                android:id="@+id/btnAddImg"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="8dp">
+
+                <ImageView
+                    android:id="@+id/imgAdd"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add_foto_empresa"
+                    app:tint="@color/secondary_text" />
+
+                <ImageView
+                    android:id="@+id/imgVagaImg"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center" />
+            </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/edtCargo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:autofillHints="@string/cargo"
+                android:background="@drawable/bg_edt"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_color"
+                android:hint="@string/cargo"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text" />
+
+            <EditText
+                android:id="@+id/edtEmpresa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autofillHints="@string/cargo"
+                android:background="@drawable/bg_edt"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_color"
+                android:hint="@string/empresa"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text" />
+
+            <EditText
+                android:id="@+id/edtDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autofillHints="@string/descricao"
+                android:background="@drawable/bg_edt"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_color"
+                android:hint="@string/descricao"
+                android:inputType="text"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="48dp"
+
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text" />
+
+            <EditText
+                android:id="@+id/edtHorario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autofillHints="@string/horario"
+                android:background="@drawable/bg_edt"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_color"
+                android:hint="@string/horario"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text" />
+
+            <EditText
+                android:id="@+id/edtRequisitos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autofillHints="@string/requisitos"
+                android:background="@drawable/bg_edt"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_color"
+                android:hint="@string/requisitos"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text" />
+
+            <android.widget.Button
+                android:id="@+id/btnSalvar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="1dp"
+                android:text="@string/salvar_vaga"
+                android:textAllCaps="false"
+                android:textColor="@color/text_icon"
+                android:textSize="20sp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:indeterminateTint="@color/accent_color"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

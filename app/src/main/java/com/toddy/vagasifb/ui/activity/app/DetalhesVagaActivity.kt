@@ -58,7 +58,7 @@ class DetalhesVagaActivity : AppCompatActivity() {
             imgVaga.tentaCarregarImagem(vaga.imagem)
             tvCargo.text = vaga.cargo
             tvDescricao.text = vaga.descricao
-            tvHorario.text = vaga.horario
+            tvHorario.text = "Horário da vaga: ${vaga.horario}"
             toolbarMenu.tvTitulo.text = vaga.empresa
 
             vaga.requisitos.forEach {requisito ->

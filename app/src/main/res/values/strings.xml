@@ -12,4 +12,9 @@
     <string name="editar_vaga">Editar Vaga</string>
     <string name="excluir">Excluir</string>
     <string name="editar">Editar</string>
+    <string name="cargo">Cargo</string>
+    <string name="empresa">Empresa</string>
+    <string name="descricao">Descrição</string>
+    <string name="horario">Horário</string>
+    <string name="salvar_vaga">Salvar Vaga</string>
 </resources>

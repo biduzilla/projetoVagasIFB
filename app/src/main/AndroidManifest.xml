@@ -13,6 +13,13 @@
         android:theme="@style/Theme.VagasIFB"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.empregador.FormVagaActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.activity.app.DetalhesVagaActivity"
             android:exported="false">
             <meta-data
