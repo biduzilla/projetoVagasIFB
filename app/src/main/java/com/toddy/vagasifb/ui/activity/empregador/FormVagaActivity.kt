@@ -2,7 +2,10 @@ package com.toddy.vagasifb.ui.activity.empregador
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -123,7 +126,9 @@ class FormVagaActivity : AppCompatActivity() {
     }
 
     private fun verificarPermissaoGaleria() {
-        Toast.makeText(baseContext, "Galeria", Toast.LENGTH_SHORT).show()
+        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+            resultLauncher.launch(this)
+        }
     }
 
     private fun verificarPermissaoCamera() {
@@ -205,12 +210,28 @@ class FormVagaActivity : AppCompatActivity() {
 
                     val caminhoImagem: String
 
-                    when {
-                        resultCode.contains(ABRIR_CAMERA) -> {
+                    when (resultCode) {
+                        ABRIR_CAMERA -> {
                             val file = File(currentPhotoPath)
                             caminhoImagem = file.toURI().toString()
                             binding.imgAdd.visibility = View.GONE
                             binding.imgVagaImg.setImageURI(Uri.fromFile(file))
+                        }
+                        ABRIR_GALERIA -> {
+                            val imagemSelecionada: Uri = it.data!!.data!!
+
+                            val bitmap: Bitmap = if (Build.VERSION.SDK_INT < 28) {
+                                MediaStore.Images.Media.getBitmap(
+                                    contentResolver,
+                                    imagemSelecionada
+                                )
+                            } else {
+                                val source: ImageDecoder.Source =
+                                    ImageDecoder.createSource(contentResolver, imagemSelecionada)
+                                ImageDecoder.decodeBitmap(source)
+                            }
+                            binding.imgAdd.visibility = View.GONE
+                            binding.imgVagaImg.setImageBitmap(bitmap)
                         }
                         else -> Toast.makeText(
                             this,
