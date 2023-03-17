@@ -32,7 +32,6 @@ class VagaDao {
                 addOnSuccessListener {
                     storage.downloadUrl.addOnCompleteListener { task ->
                         urlCriado(task.result.toString())
-                        Log.i("infoteste",task.result.toString())
                     }
                 }.addOnFailureListener {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
@@ -85,19 +84,48 @@ class VagaDao {
                                 vagasLst.add(vaga)
                             }
                         }
-
                         vagasRecuperadas(vagasLst)
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")
                 }
-
             })
         }
         progressBar.visibility = View.GONE
 
+    }
+
+    fun recuperarVaga(
+        activity: Activity,
+        idVaga: String,
+        progressBar: ProgressBar,
+        vagasRecuperada: (vaga: Vaga?) -> Unit
+    ) {
+        getIdUser(activity.baseContext)?.let { idUser ->
+            FirebaseDatabase.getInstance().reference
+                .child("vagas")
+                .child(idVaga)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            vagasRecuperada(snapshot.getValue(Vaga::class.java))
+                            progressBar.visibility = View.GONE
+                        } else {
+                            Toast.makeText(
+                                activity.baseContext,
+                                "Vaga não encontrada",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+        }
     }
 
 

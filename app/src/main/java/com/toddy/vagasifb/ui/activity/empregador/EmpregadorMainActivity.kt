@@ -69,7 +69,7 @@ class EmpregadorMainActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this)
         adapter.onClick = {
             Intent(this, DetalhesVagaActivity::class.java).apply {
-                putExtra(CHAVE_VAGA_ID, it)
+                putExtra(CHAVE_VAGA_ID, it.id)
                 startActivity(this)
             }
         }

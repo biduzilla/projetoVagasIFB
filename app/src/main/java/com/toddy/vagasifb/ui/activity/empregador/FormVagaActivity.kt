@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -23,9 +24,11 @@ import com.toddy.vagasifb.R
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityFormVagaBinding
 import com.toddy.vagasifb.databinding.BottomSheetFormVagaBinding
+import com.toddy.vagasifb.extensions.tentaCarregarImagem
 import com.toddy.vagasifb.model.Vaga
 import com.toddy.vagasifb.ui.activity.ABRIR_CAMERA
 import com.toddy.vagasifb.ui.activity.ABRIR_GALERIA
+import com.toddy.vagasifb.ui.activity.CHAVE_VAGA
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -42,6 +45,7 @@ class FormVagaActivity : AppCompatActivity() {
     private var resultCode: String = ""
     private var vaga: Vaga? = null
     private var caminhoImagem: String? = null
+    private var isUpdate: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,91 +53,142 @@ class FormVagaActivity : AppCompatActivity() {
 
         binding.toolbarVoltar.tvTitulo.text = "Cadastrar Vaga"
         startResult()
-//        configClicks()
+        configClicks()
+        updateVaga()
     }
 
-//    private fun configClicks() {
-//        with(binding) {
-//            toolbarVoltar.btnVoltar.setOnClickListener {
-//                finish()
-//            }
-//            btnSalvar.setOnClickListener {
-//                validaDados()
-//            }
-//
-//            btnAddImg.setOnClickListener {
-//                showBottonSheet()
-//            }
-//        }
-//    }
+    private fun updateVaga() {
+        vaga = intent.getParcelableExtra(CHAVE_VAGA)
+        vaga?.let {
+            preencheDados(it)
+            binding.toolbarVoltar.tvTitulo.text = "Atualizar Vaga"
+            binding.btnSalvar.text = "Atualizar"
+        }
+    }
 
-//    private fun validaDados() {
-//        with(binding) {
-//            val cargo = edtCargo.text.toString().trim()
-//            val empresa = edtEmpresa.text.toString().trim()
-//            val descricao = edtDescricao.text.toString().trim()
-//            val horario = edtHorario.text.toString().trim()
-//            val requisitos = edtRequisitos.text.toString().trim()
-//
-//            when {
-//                cargo.isEmpty() -> {
-//                    edtCargo.requestFocus()
-//                    edtCargo.error = "Campo Obrigatório"
-//                }
-//                empresa.isEmpty() -> {
-//                    edtEmpresa.requestFocus()
-//                    edtEmpresa.error = "Campo Obrigatório"
-//                }
-//                descricao.isEmpty() -> {
-//                    edtDescricao.requestFocus()
-//                    edtDescricao.error = "Campo Obrigatório"
-//                }
-//                horario.isEmpty() -> {
-//                    edtHorario.requestFocus()
-//                    edtHorario.error = "Campo Obrigatório"
-//                }
-//                requisitos.isEmpty() -> {
-//                    edtRequisitos.requestFocus()
-//                    edtRequisitos.error = "Campo Obrigatório"
-//                }
-//                !requisitos.contains(",") -> {
-//                    edtRequisitos.requestFocus()
-//                    edtRequisitos.error = "Coloque vírgula no final de cada requisito"
-//                }
-//                caminhoImagem == null -> {
-//                    Toast.makeText(
-//                        this@FormVagaActivity,
-//                        "Precisa adicionar a imagem da vaga para poder salvar",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//                else -> {
-//                    btnSalvar.visibility = View.GONE
-//                    progressBar.visibility = View.VISIBLE
-//
-//                    if (vaga == null) vaga = Vaga(
-//                        "",
-//                        cargo,
-//                        empresa,
-//                        descricao,
-//                        horario,
-//                        0L,
-//                        requisitos.split(",").toList(),
-//                        ""
-//                    )
-//                    salvarVaga(vaga!!)
-//                }
-//            }
-//        }
-//    }
+    private fun preencheDados(vaga: Vaga) {
+        with(binding) {
+            edtCargo.setText(vaga.cargo)
+            edtEmpresa.setText(vaga.empresa)
+            edtDescricao.setText(vaga.descricao)
+            edtHorario.setText(vaga.horario)
+            edtRequisitos.setText(vaga.requisitos.toString().replace("[", "").replace("]", ""))
+            imgAdd.visibility = View.GONE
+            imgVagaImg.tentaCarregarImagem(vaga.imagem!!)
+        }
+    }
 
-    private fun salvarVaga(vaga: Vaga) {
-            FirebaseDatabase.getInstance().reference.apply {
-                push().key?.let { id ->
-                    vaga.id = id
-                    salvarImagemFirebase(id)
+    private fun configClicks() {
+        with(binding) {
+            toolbarVoltar.btnVoltar.setOnClickListener {
+                finish()
+            }
+            btnSalvar.setOnClickListener {
+                validaDados()
+            }
+
+            btnAddImg.setOnClickListener {
+                showBottonSheet()
+            }
+        }
+    }
+
+    private fun validaDados() {
+        with(binding) {
+            val cargo = edtCargo.text.toString().trim()
+            val empresa = edtEmpresa.text.toString().trim()
+            val descricao = edtDescricao.text.toString().trim()
+            val horario = edtHorario.text.toString().trim()
+            val requisitos = edtRequisitos.text.toString().trim()
+
+            when {
+                cargo.isEmpty() -> {
+                    edtCargo.requestFocus()
+                    edtCargo.error = "Campo Obrigatório"
+                }
+                empresa.isEmpty() -> {
+                    edtEmpresa.requestFocus()
+                    edtEmpresa.error = "Campo Obrigatório"
+                }
+                descricao.isEmpty() -> {
+                    edtDescricao.requestFocus()
+                    edtDescricao.error = "Campo Obrigatório"
+                }
+                horario.isEmpty() -> {
+                    edtHorario.requestFocus()
+                    edtHorario.error = "Campo Obrigatório"
+                }
+                requisitos.isEmpty() -> {
+                    edtRequisitos.requestFocus()
+                    edtRequisitos.error = "Campo Obrigatório"
+                }
+                !requisitos.contains(",") -> {
+                    edtRequisitos.requestFocus()
+                    edtRequisitos.error = "Coloque vírgula no final de cada requisito"
+                }
+
+                else -> {
+                    btnSalvar.visibility = View.GONE
+                    progressBar.visibility = View.VISIBLE
+
+                    if (vaga == null) {
+                        vaga = Vaga(
+                            "",
+                            cargo,
+                            empresa,
+                            descricao,
+                            horario,
+                            0L,
+                            requisitos.split(",").toList(),
+                            ""
+                        )
+                    } else {
+                        vaga!!.cargo = cargo
+                        vaga!!.empresa = empresa
+                        vaga!!.descricao = descricao
+                        vaga!!.horario = horario
+                        vaga!!.requisitos = requisitos.split(",").toList()
+                    }
+
+
+                    if (vaga!!.id!!.isNotEmpty()) {
+                        if (caminhoImagem != null) {
+                            salvarImagemFirebase(vaga!!.id!!)
+                        } else {
+                            VagaDao().salvarVagaUser(
+                                vaga!!,
+                                this@FormVagaActivity,
+                                !isUpdate,
+                            )
+                        }
+                    } else {
+                        if (caminhoImagem != null) {
+                            salvarVaga(vaga!!)
+                        } else {
+                            btnSalvar.visibility = View.VISIBLE
+                            progressBar.visibility = View.GONE
+
+                            Toast.makeText(
+                                this@FormVagaActivity,
+                                "Imagem da vaga obrigatória",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    }
+
                 }
             }
+        }
+    }
+
+    private fun salvarVaga(vaga: Vaga) {
+        FirebaseDatabase.getInstance().reference.apply {
+            push().key?.let { id ->
+                vaga.id = id
+                salvarImagemFirebase(vaga.id!!)
+            }
+        }
     }
 
     private fun salvarImagemFirebase(idVaga: String) {
@@ -145,7 +200,7 @@ class FormVagaActivity : AppCompatActivity() {
                     VagaDao().salvarVagaUser(
                         vaga!!,
                         this@FormVagaActivity,
-                        true,
+                        !isUpdate,
                     )
                 }
             }

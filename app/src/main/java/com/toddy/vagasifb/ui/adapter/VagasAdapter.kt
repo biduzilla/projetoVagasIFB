@@ -59,6 +59,7 @@ class VagasAdapter(
     fun atualiza(vagas: List<Vaga>) {
         this.vagas.clear()
         this.vagas.addAll(vagas)
+        this.vagas.reverse()
         notifyDataSetChanged()
     }
 }

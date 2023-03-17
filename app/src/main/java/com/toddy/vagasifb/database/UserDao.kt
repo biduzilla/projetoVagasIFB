@@ -9,6 +9,7 @@ import com.toddy.vagasifb.model.User
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.ui.activity.MainActivity
 import com.toddy.vagasifb.ui.activity.app.LoginActivity
+import com.toddy.vagasifb.ui.activity.empregador.EmpregadorMainActivity
 import com.toddy.vagasifb.utils.FireBaseHelper
 
 class UserDao {
@@ -73,7 +74,7 @@ class UserDao {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    context.iniciaActivity(MainActivity::class.java)
+                    context.iniciaActivity(EmpregadorMainActivity::class.java)
                 } else {
                     Toast.makeText(
                         context,

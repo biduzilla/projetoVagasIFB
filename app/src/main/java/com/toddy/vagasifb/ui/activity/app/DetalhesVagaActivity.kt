@@ -1,5 +1,6 @@
 package com.toddy.vagasifb.ui.activity.app
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +12,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginBottom
 import com.toddy.vagasifb.R
+import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityDetalhesVagaBinding
 import com.toddy.vagasifb.databinding.ToolbarVoltarMenuBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.extensions.tentaCarregarImagem
 import com.toddy.vagasifb.model.Vaga
+import com.toddy.vagasifb.ui.activity.CHAVE_VAGA
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
 import com.toddy.vagasifb.ui.activity.empregador.EmpregadorMainActivity
+import com.toddy.vagasifb.ui.activity.empregador.FormVagaActivity
 
 class DetalhesVagaActivity : AppCompatActivity() {
 
@@ -25,13 +29,18 @@ class DetalhesVagaActivity : AppCompatActivity() {
         ActivityDetalhesVagaBinding.inflate(layoutInflater)
     }
     private var vaga: Vaga? = null
+    private var vagaId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        tentaCarregarVaga()
         configClicks()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tentaCarregarVaga()
     }
 
     private fun configClicks() {
@@ -47,9 +56,14 @@ class DetalhesVagaActivity : AppCompatActivity() {
     }
 
     private fun tentaCarregarVaga() {
-        intent.getParcelableExtra<Vaga>(CHAVE_VAGA_ID)?.let { vagaCarregada ->
-            vaga = vagaCarregada
-            vaga?.let { preencheDados(it) }
+        vagaId = intent.getStringExtra(CHAVE_VAGA_ID)
+        vagaId?.let {
+            VagaDao().recuperarVaga(this, vagaId!!, binding.progressBar) {
+                vaga = it
+                vaga?.let { vagaRecuperada ->
+                    preencheDados(vagaRecuperada)
+                }
+            }
         }
     }
 
@@ -61,14 +75,15 @@ class DetalhesVagaActivity : AppCompatActivity() {
             tvHorario.text = "Horário da vaga: ${vaga.horario}"
             toolbarMenu.tvTitulo.text = vaga.empresa
 
-            vaga.requisitos!!.forEach {requisito ->
-                TextView(this@DetalhesVagaActivity).apply {
-                    text = requisito
-                    Log.i("infoteste", requisito)
-                    textSize = 18f
-                    setPadding(0,0,0,8)
-                    setTextColor(Color.parseColor("#212121"))
-                    llRequisitos.addView(this)
+            vaga.requisitos!!.forEach { requisito ->
+                if (requisito.isNotEmpty()) {
+                    TextView(this@DetalhesVagaActivity).apply {
+                        text = requisito
+                        textSize = 18f
+                        setPadding(0, 0, 0, 8)
+                        setTextColor(Color.parseColor("#212121"))
+                        llRequisitos.addView(this)
+                    }
                 }
 
             }
@@ -81,7 +96,12 @@ class DetalhesVagaActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menuEditar -> {
-                    Toast.makeText(this, "editar", Toast.LENGTH_SHORT).show()
+                    Intent(this, FormVagaActivity::class.java).apply {
+                        putExtra(CHAVE_VAGA, vaga)
+                        startActivity(this)
+                        vaga = null
+                        binding.llRequisitos.removeAllViews()
+                    }
                 }
                 R.id.menuExcluir -> {
                     Toast.makeText(this, "excluir", Toast.LENGTH_SHORT).show()
