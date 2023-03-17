@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.R
@@ -56,9 +57,9 @@ class DetalhesVagaActivity : AppCompatActivity() {
     }
 
     private fun tentaCarregarVaga() {
-
-
         vagaId = intent.getStringExtra(CHAVE_VAGA_ID)
+
+
         vagaId?.let {
             VagaDao().recuperarVaga(this, vagaId!!, binding.progressBar) {
                 vaga = it

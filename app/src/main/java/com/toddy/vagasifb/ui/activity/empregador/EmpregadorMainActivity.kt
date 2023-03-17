@@ -17,7 +17,7 @@ import com.toddy.vagasifb.ui.adapter.VagasAdapter
 
 class EmpregadorMainActivity : AppCompatActivity() {
 
-    private val adapter = VagasAdapter(this)
+    private val adapter = VagasAdapter()
     private var vagas = mutableListOf<Vaga>()
 
     private val binding by lazy {

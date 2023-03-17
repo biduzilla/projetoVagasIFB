@@ -3,6 +3,7 @@ package com.toddy.vagasifb.database
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -130,10 +131,10 @@ class VagaDao {
     }
 
 
-    fun recuperarVagas(activity: Activity, vagasRecuperada: (vagaLst: List<Vaga>) -> Unit) {
+    fun recuperarVagas(activity: Activity, vagasRecuperada: (vagaLst: List<Vaga>?) -> Unit) {
 
         val vagas = mutableListOf<Vaga>()
-
+        Log.i("infoteste", "recuperarVagas")
         FirebaseDatabase.getInstance().reference
             .child("vagas")
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -141,9 +142,11 @@ class VagaDao {
                     if (snapshot.exists()) {
                         snapshot.children.forEach {
                             it.getValue(Vaga::class.java)?.let { vaga ->
+                                Log.i("infoteste", "Achou")
                                 vagas.add(vaga)
                             }
                         }
+                        vagasRecuperada(vagas)
                     }
                 }
 
@@ -151,7 +154,6 @@ class VagaDao {
                     TODO("Not yet implemented")
                 }
             })
-        vagasRecuperada(vagas)
     }
 
     fun apagarVaga(activity: Activity, vagaId: String) {

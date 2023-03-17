@@ -10,7 +10,7 @@ import com.toddy.vagasifb.model.Vaga
 import com.toddy.vagasifb.utils.GetMask
 
 class VagasAdapter(
-    private val context: Context,
+
     vagas: List<Vaga> = emptyList(),
     var onClick: (vaga: Vaga) -> Unit = {}
 ) : RecyclerView.Adapter<VagasAdapter.ViewHolder>() {
@@ -44,7 +44,7 @@ class VagasAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VagasAdapter.ViewHolder {
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
         val binding = ItemEmpregadorVagaBinding.inflate(inflater, parent,false)
         return ViewHolder(binding)
     }
