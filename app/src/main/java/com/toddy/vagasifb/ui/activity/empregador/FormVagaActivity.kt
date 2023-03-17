@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -23,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.toddy.vagasifb.R
+import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityFormVagaBinding
 import com.toddy.vagasifb.databinding.BottomSheetFormVagaBinding
@@ -146,7 +146,7 @@ class FormVagaActivity : AppCompatActivity() {
                     if (vaga == null) {
                         vaga = Vaga(
                             "",
-                            VagaDao().getIdUser(this@FormVagaActivity),
+                            UserDao().getIdUser(this@FormVagaActivity),
                             cargo,
                             empresa,
                             descricao,

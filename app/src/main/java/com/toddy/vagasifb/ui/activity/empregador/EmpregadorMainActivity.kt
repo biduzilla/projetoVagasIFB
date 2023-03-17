@@ -2,12 +2,10 @@ package com.toddy.vagasifb.ui.activity.empregador
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityEmpregadorMainBinding
 import com.toddy.vagasifb.extensions.iniciaActivity

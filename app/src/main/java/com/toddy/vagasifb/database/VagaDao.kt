@@ -3,11 +3,9 @@ package com.toddy.vagasifb.database
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.toddy.vagasifb.model.Vaga
@@ -20,7 +18,7 @@ class VagaDao {
         context: Context,
         urlCriado: (url: String?) -> Unit
     ) {
-        getIdUser(context)?.let { idUser ->
+        UserDao().getIdUser(context)?.let { idUser ->
             val storage = FirebaseStorage.getInstance().reference
                 .child("imagens")
                 .child("vagas")
@@ -41,7 +39,7 @@ class VagaDao {
     }
 
     fun salvarVagaUser(vaga: Vaga, activity: Activity, isNovo: Boolean) {
-        getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
 
             val vagaMeuRef = FirebaseDatabase.getInstance().reference
                 .child("empregadores")
@@ -71,7 +69,7 @@ class VagaDao {
     ) {
         val vagasLst = mutableListOf<Vaga>()
 
-        getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
             val minhasVagasRef = FirebaseDatabase.getInstance().reference
                 .child("empregadores")
                 .child(idUser)
@@ -105,7 +103,7 @@ class VagaDao {
         progressBar: ProgressBar,
         vagasRecuperada: (vaga: Vaga?) -> Unit
     ) {
-        getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
             FirebaseDatabase.getInstance().reference
                 .child("vagas")
                 .child(idVaga)
@@ -132,16 +130,10 @@ class VagaDao {
     }
 
 
-    fun getIdUser(context: Context): String? {
-        FirebaseAuth.getInstance().currentUser?.let {
-            return it.uid
-        }
-        Toast.makeText(context, "Usuario não logado na conta", Toast.LENGTH_SHORT).show()
-        return null
-    }
+
 
     fun apagarVaga(activity: Activity, vagaId: String) {
-        getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
 
             FirebaseDatabase.getInstance().reference
                 .child("empregadores")

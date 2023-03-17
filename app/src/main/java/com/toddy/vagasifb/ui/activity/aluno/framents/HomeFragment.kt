@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.toddy.vagasifb.R
 import com.toddy.vagasifb.databinding.FragmentHomeBinding
+import com.toddy.vagasifb.extensions.iniciaActivity
+import com.toddy.vagasifb.ui.activity.app.LoginActivity
 
 
 class HomeFragment : Fragment() {
@@ -25,5 +27,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         configClicks()
+    }
+
+    private fun configClicks() {
+        binding.toolbarSair.btnSair.setOnClickListener {
+            activity?.let {
+                it.finish()
+                it.iniciaActivity(LoginActivity::class.java)
+            }
+        }
     }
 }
