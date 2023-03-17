@@ -56,83 +56,124 @@
                     android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
-            <EditText
-                android:id="@+id/edtCargo"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:autofillHints="@string/cargo"
-                android:background="@drawable/bg_edt"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/primary_color"
                 android:hint="@string/cargo"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/secondary_text" />
+                app:boxBackgroundColor="@color/light_primary_color"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxStrokeColor="@color/dark_primary_color">
 
-            <EditText
-                android:id="@+id/edtEmpresa"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtCargo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cargo"
+                    android:inputType="text"
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/light_primary_color" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:autofillHints="@string/cargo"
-                android:background="@drawable/bg_edt"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/primary_color"
                 android:hint="@string/empresa"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/secondary_text" />
+                app:boxBackgroundColor="@color/light_primary_color"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxStrokeColor="@color/dark_primary_color">
 
-            <EditText
-                android:id="@+id/edtDescricao"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmpresa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/empresa"
+                    android:inputType="text"
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/light_primary_color" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:autofillHints="@string/descricao"
-                android:background="@drawable/bg_edt"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/primary_color"
-                android:hint="@string/descricao"
-                android:inputType="text"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="48dp"
+                app:boxBackgroundColor="@color/light_primary_color"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxStrokeColor="@color/dark_primary_color">
 
-                android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/secondary_text" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/descricao"
+                    android:inputType="text"
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/light_primary_color" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/edtHorario"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:autofillHints="@string/horario"
-                android:background="@drawable/bg_edt"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/primary_color"
                 android:hint="@string/horario"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/secondary_text" />
+                app:boxBackgroundColor="@color/light_primary_color"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxStrokeColor="@color/dark_primary_color">
 
-            <EditText
-                android:id="@+id/edtRequisitos"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtHorario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/horario"
+                    android:inputType="text"
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/light_primary_color" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:autofillHints="@string/requisitos"
-                android:background="@drawable/bg_edt"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/primary_color"
                 android:hint="@string/requisitos"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/secondary_text" />
+                app:boxBackgroundColor="@color/light_primary_color"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+
+                app:boxStrokeColor="@color/dark_primary_color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtRequisitos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/requisitos"
+                    android:inputType="text"
+                    android:paddingBottom="48dp"
+
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/light_primary_color" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <android.widget.Button
                 android:id="@+id/btnSalvar"
@@ -156,6 +197,8 @@
                 android:indeterminateTint="@color/accent_color"
                 android:visibility="gone"
                 tools:visibility="visible" />
+
+
         </LinearLayout>
     </ScrollView>
 

@@ -49,83 +49,83 @@ class FormVagaActivity : AppCompatActivity() {
 
         binding.toolbarVoltar.tvTitulo.text = "Cadastrar Vaga"
         startResult()
-        configClicks()
+//        configClicks()
     }
 
-    private fun configClicks() {
-        with(binding) {
-            toolbarVoltar.btnVoltar.setOnClickListener {
-                finish()
-            }
-            btnSalvar.setOnClickListener {
-                validaDados()
-            }
+//    private fun configClicks() {
+//        with(binding) {
+//            toolbarVoltar.btnVoltar.setOnClickListener {
+//                finish()
+//            }
+//            btnSalvar.setOnClickListener {
+//                validaDados()
+//            }
+//
+//            btnAddImg.setOnClickListener {
+//                showBottonSheet()
+//            }
+//        }
+//    }
 
-            btnAddImg.setOnClickListener {
-                showBottonSheet()
-            }
-        }
-    }
-
-    private fun validaDados() {
-        with(binding) {
-            val cargo = edtCargo.text.toString().trim()
-            val empresa = edtEmpresa.text.toString().trim()
-            val descricao = edtDescricao.text.toString().trim()
-            val horario = edtHorario.text.toString().trim()
-            val requisitos = edtRequisitos.text.toString().trim()
-
-            when {
-                cargo.isEmpty() -> {
-                    edtCargo.requestFocus()
-                    edtCargo.error = "Campo Obrigatório"
-                }
-                empresa.isEmpty() -> {
-                    edtEmpresa.requestFocus()
-                    edtEmpresa.error = "Campo Obrigatório"
-                }
-                descricao.isEmpty() -> {
-                    edtDescricao.requestFocus()
-                    edtDescricao.error = "Campo Obrigatório"
-                }
-                horario.isEmpty() -> {
-                    edtHorario.requestFocus()
-                    edtHorario.error = "Campo Obrigatório"
-                }
-                requisitos.isEmpty() -> {
-                    edtRequisitos.requestFocus()
-                    edtRequisitos.error = "Campo Obrigatório"
-                }
-                !requisitos.contains(",") -> {
-                    edtRequisitos.requestFocus()
-                    edtRequisitos.error = "Coloque vírgula no final de cada requisito"
-                }
-                caminhoImagem == null -> {
-                    Toast.makeText(
-                        this@FormVagaActivity,
-                        "Precisa adicionar a imagem da vaga para poder salvar",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                else -> {
-                    btnSalvar.visibility = View.GONE
-                    progressBar.visibility = View.VISIBLE
-
-                    if (vaga == null) vaga = Vaga(
-                        "",
-                        cargo,
-                        empresa,
-                        descricao,
-                        horario,
-                        0L,
-                        requisitos.split(",").toList(),
-                        ""
-                    )
-                    salvarVaga(vaga!!)
-                }
-            }
-        }
-    }
+//    private fun validaDados() {
+//        with(binding) {
+//            val cargo = edtCargo.text.toString().trim()
+//            val empresa = edtEmpresa.text.toString().trim()
+//            val descricao = edtDescricao.text.toString().trim()
+//            val horario = edtHorario.text.toString().trim()
+//            val requisitos = edtRequisitos.text.toString().trim()
+//
+//            when {
+//                cargo.isEmpty() -> {
+//                    edtCargo.requestFocus()
+//                    edtCargo.error = "Campo Obrigatório"
+//                }
+//                empresa.isEmpty() -> {
+//                    edtEmpresa.requestFocus()
+//                    edtEmpresa.error = "Campo Obrigatório"
+//                }
+//                descricao.isEmpty() -> {
+//                    edtDescricao.requestFocus()
+//                    edtDescricao.error = "Campo Obrigatório"
+//                }
+//                horario.isEmpty() -> {
+//                    edtHorario.requestFocus()
+//                    edtHorario.error = "Campo Obrigatório"
+//                }
+//                requisitos.isEmpty() -> {
+//                    edtRequisitos.requestFocus()
+//                    edtRequisitos.error = "Campo Obrigatório"
+//                }
+//                !requisitos.contains(",") -> {
+//                    edtRequisitos.requestFocus()
+//                    edtRequisitos.error = "Coloque vírgula no final de cada requisito"
+//                }
+//                caminhoImagem == null -> {
+//                    Toast.makeText(
+//                        this@FormVagaActivity,
+//                        "Precisa adicionar a imagem da vaga para poder salvar",
+//                        Toast.LENGTH_LONG
+//                    ).show()
+//                }
+//                else -> {
+//                    btnSalvar.visibility = View.GONE
+//                    progressBar.visibility = View.VISIBLE
+//
+//                    if (vaga == null) vaga = Vaga(
+//                        "",
+//                        cargo,
+//                        empresa,
+//                        descricao,
+//                        horario,
+//                        0L,
+//                        requisitos.split(",").toList(),
+//                        ""
+//                    )
+//                    salvarVaga(vaga!!)
+//                }
+//            }
+//        }
+//    }
 
     private fun salvarVaga(vaga: Vaga) {
             FirebaseDatabase.getInstance().reference.apply {
