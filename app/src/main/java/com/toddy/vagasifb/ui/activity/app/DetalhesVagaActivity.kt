@@ -9,11 +9,13 @@ import android.view.MenuInflater
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginBottom
 import com.toddy.vagasifb.R
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityDetalhesVagaBinding
+import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
 import com.toddy.vagasifb.databinding.ToolbarVoltarMenuBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.extensions.tentaCarregarImagem
@@ -40,6 +42,7 @@ class DetalhesVagaActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        binding.llRequisitos.removeAllViews()
         tentaCarregarVaga()
     }
 
@@ -100,15 +103,33 @@ class DetalhesVagaActivity : AppCompatActivity() {
                         putExtra(CHAVE_VAGA, vaga)
                         startActivity(this)
                         vaga = null
-                        binding.llRequisitos.removeAllViews()
                     }
                 }
                 R.id.menuExcluir -> {
-                    Toast.makeText(this, "excluir", Toast.LENGTH_SHORT).show()
+                    dialogExcluirVaga()
                 }
             }
             return@setOnMenuItemClickListener true
         }
         popupMenu.show()
+    }
+
+    private fun dialogExcluirVaga() {
+        DialogDetalhesVagaDeletarBinding.inflate(layoutInflater).apply {
+            val dialog = AlertDialog.Builder(this@DetalhesVagaActivity)
+                .setView(root)
+                .create()
+            dialog.show()
+
+            btnCancelar.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            btnApagar.setOnClickListener {
+                VagaDao().apagarVaga(this@DetalhesVagaActivity, vagaId!!)
+                finish()
+            }
+
+        }
     }
 }

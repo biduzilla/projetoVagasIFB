@@ -43,14 +43,18 @@ class EmpregadorMainActivity : AppCompatActivity() {
     private fun recuperarVagas() {
         VagaDao().recuperarMinhasVagas(this, binding.progressBar) {
             it?.let {
-                adapter.atualiza(it)
                 if (it.isEmpty()) {
+                    adapter.atualiza(emptyList())
+                    binding.tvInfo.visibility = View.VISIBLE
                     Toast.makeText(
                         this,
                         "Você ainda não cadastrou nenhuma vaga",
                         Toast.LENGTH_SHORT
                     )
                         .show()
+                } else {
+                    binding.tvInfo.visibility = View.GONE
+                    adapter.atualiza(it)
                 }
             }
         }

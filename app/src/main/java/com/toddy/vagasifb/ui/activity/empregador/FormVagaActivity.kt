@@ -1,6 +1,7 @@
 package com.toddy.vagasifb.ui.activity.empregador
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -11,6 +12,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -131,6 +133,16 @@ class FormVagaActivity : AppCompatActivity() {
                     btnSalvar.visibility = View.GONE
                     progressBar.visibility = View.VISIBLE
 
+                    ocultarTeclado()
+
+                    val requisitosLst = requisitos.split(",").toMutableList()
+
+                    requisitosLst.forEach {
+                        if (it.isEmpty()) {
+                            requisitosLst.remove(it)
+                        }
+                    }
+
                     if (vaga == null) {
                         vaga = Vaga(
                             "",
@@ -139,7 +151,7 @@ class FormVagaActivity : AppCompatActivity() {
                             descricao,
                             horario,
                             0L,
-                            requisitos.split(",").toList(),
+                            requisitosLst.toList(),
                             ""
                         )
                     } else {
@@ -147,7 +159,7 @@ class FormVagaActivity : AppCompatActivity() {
                         vaga!!.empresa = empresa
                         vaga!!.descricao = descricao
                         vaga!!.horario = horario
-                        vaga!!.requisitos = requisitos.split(",").toList()
+                        vaga!!.requisitos = requisitosLst.toList()
                     }
 
 
@@ -180,6 +192,12 @@ class FormVagaActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun ocultarTeclado() {
+        val imm =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.edtCargo.windowToken, 0)
     }
 
     private fun salvarVaga(vaga: Vaga) {

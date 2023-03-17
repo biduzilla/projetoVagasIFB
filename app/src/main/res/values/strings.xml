@@ -20,4 +20,6 @@
     <string name="camera">Câmera</string>
     <string name="galeria">Galeria</string>
     <string name="cancelar">Cancelar</string>
+    <string name="apagar_vaga">Apagar Vaga</string>
+    <string name="lista_vaga_vazia">Você ainda não cadastrou nenhuma vaga</string>
 </resources>

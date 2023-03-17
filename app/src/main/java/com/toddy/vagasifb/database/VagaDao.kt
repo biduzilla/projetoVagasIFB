@@ -87,6 +87,7 @@ class VagaDao {
                         vagasRecuperadas(vagasLst)
                     }
                 }
+
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")
                 }
@@ -135,5 +136,28 @@ class VagaDao {
         }
         Toast.makeText(context, "Usuario não logado na conta", Toast.LENGTH_SHORT).show()
         return null
+    }
+
+    fun apagarVaga(activity: Activity, vagaId: String) {
+        getIdUser(activity.baseContext)?.let { idUser ->
+
+            FirebaseDatabase.getInstance().reference
+                .child("empregadores")
+                .child(idUser)
+                .child(vagaId).removeValue()
+
+            FirebaseDatabase.getInstance().reference
+                .child("vagas")
+                .child(vagaId).removeValue()
+
+            FirebaseStorage.getInstance().reference
+                .child("imagens")
+                .child("vagas")
+                .child(idUser)
+                .child(vagaId)
+                .child("vaga.jpeg").delete()
+
+            activity.finish()
+        }
     }
 }
