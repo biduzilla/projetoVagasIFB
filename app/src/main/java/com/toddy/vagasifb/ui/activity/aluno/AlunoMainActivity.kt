@@ -6,6 +6,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.toddy.vagasifb.R
 import com.toddy.vagasifb.databinding.ActivityAlunoMainBinding
+import com.toddy.vagasifb.extensions.iniciaActivity
+import com.toddy.vagasifb.ui.activity.app.LoginActivity
 
 class AlunoMainActivity : AppCompatActivity() {
 
@@ -21,5 +23,14 @@ class AlunoMainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavView, navController)
+
+        configClicks()
+    }
+
+    private fun configClicks(){
+        binding.toolbarSair.btnSair.setOnClickListener {
+            iniciaActivity(LoginActivity::class.java)
+            finish()
+        }
     }
 }

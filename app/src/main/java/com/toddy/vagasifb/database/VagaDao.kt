@@ -83,7 +83,7 @@ class VagaDao {
                             }
                         }
                         vagasRecuperadas(vagasLst.toList())
-                    }else{
+                    } else {
                         vagasRecuperadas(emptyList())
                     }
                 }
@@ -103,7 +103,7 @@ class VagaDao {
         progressBar: ProgressBar,
         vagasRecuperada: (vaga: Vaga?) -> Unit
     ) {
-        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity.baseContext)?.let {
             FirebaseDatabase.getInstance().reference
                 .child("vagas")
                 .child(idVaga)
@@ -130,7 +130,29 @@ class VagaDao {
     }
 
 
+    fun recuperarVagas(activity: Activity, vagasRecuperada: (vagaLst: List<Vaga>) -> Unit) {
 
+        val vagas = mutableListOf<Vaga>()
+
+        FirebaseDatabase.getInstance().reference
+            .child("vagas")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        snapshot.children.forEach {
+                            it.getValue(Vaga::class.java)?.let { vaga ->
+                                vagas.add(vaga)
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        vagasRecuperada(vagas)
+    }
 
     fun apagarVaga(activity: Activity, vagaId: String) {
         UserDao().getIdUser(activity.baseContext)?.let { idUser ->

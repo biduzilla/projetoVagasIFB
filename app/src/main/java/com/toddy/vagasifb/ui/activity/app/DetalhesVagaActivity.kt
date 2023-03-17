@@ -3,6 +3,7 @@ package com.toddy.vagasifb.ui.activity.app
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -14,6 +15,7 @@ import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.extensions.tentaCarregarImagem
 import com.toddy.vagasifb.model.Vaga
+import com.toddy.vagasifb.ui.activity.CHAVE_USER
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
 import com.toddy.vagasifb.ui.activity.empregador.EmpregadorMainActivity
@@ -26,11 +28,12 @@ class DetalhesVagaActivity : AppCompatActivity() {
     }
     private var vaga: Vaga? = null
     private var vagaId: String? = null
+    private var isUser: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        desativarMenu()
         configClicks()
     }
 
@@ -53,6 +56,8 @@ class DetalhesVagaActivity : AppCompatActivity() {
     }
 
     private fun tentaCarregarVaga() {
+
+
         vagaId = intent.getStringExtra(CHAVE_VAGA_ID)
         vagaId?.let {
             VagaDao().recuperarVaga(this, vagaId!!, binding.progressBar) {
@@ -61,6 +66,14 @@ class DetalhesVagaActivity : AppCompatActivity() {
                     preencheDados(vagaRecuperada)
                 }
             }
+        }
+    }
+
+    private fun desativarMenu() {
+        isUser = intent.getBooleanExtra(CHAVE_USER, false)
+
+        if (isUser) {
+            binding.toolbarMenu.btnMenu.visibility = View.GONE
         }
     }
 

@@ -1,7 +1,9 @@
 package com.toddy.vagasifb.ui.activity.app
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.databinding.ActivityLoginBinding
@@ -49,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
                     edtSenha.error = "Campo Obrigatório"
                 }
                 else -> {
+                    ocultarTeclado()
                     progressBar.visibility = View.VISIBLE
                     btnLogin.visibility = View.GONE
 
@@ -56,6 +59,12 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun ocultarTeclado() {
+        val imm =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.edtEmail.windowToken, 0)
     }
 
     private fun login(email: String, senha: String) {
