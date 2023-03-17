@@ -2,8 +2,8 @@ package com.toddy.vagasifb.ui.activity.empregador
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toddy.vagasifb.database.VagaDao
@@ -11,7 +11,6 @@ import com.toddy.vagasifb.databinding.ActivityEmpregadorMainBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.model.Vaga
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
-import com.toddy.vagasifb.ui.activity.Constants
 import com.toddy.vagasifb.ui.activity.app.DetalhesVagaActivity
 import com.toddy.vagasifb.ui.adapter.VagasAdapter
 
@@ -30,32 +29,22 @@ class EmpregadorMainActivity : AppCompatActivity() {
         configRv()
         configClicks()
         binding.toolbarSair.tvTitulo.text = "Minhas Vagas"
-
-        recuperarVagas()
-
     }
 
     override fun onResume() {
         super.onResume()
         recuperarVagas()
+
     }
 
     private fun recuperarVagas() {
         VagaDao().recuperarMinhasVagas(this, binding.progressBar) {
-            it?.let {
-                if (it.isEmpty()) {
-                    adapter.atualiza(emptyList())
-                    binding.tvInfo.visibility = View.VISIBLE
-                    Toast.makeText(
-                        this,
-                        "Você ainda não cadastrou nenhuma vaga",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                } else {
-                    binding.tvInfo.visibility = View.GONE
-                    adapter.atualiza(it)
-                }
+            if (it.isEmpty()) {
+                adapter.atualiza(emptyList())
+                binding.tvInfo.visibility = View.VISIBLE
+            } else {
+                adapter.atualiza(it)
+                binding.tvInfo.visibility = View.GONE
             }
         }
     }

@@ -146,12 +146,14 @@ class FormVagaActivity : AppCompatActivity() {
                     if (vaga == null) {
                         vaga = Vaga(
                             "",
+                            VagaDao().getIdUser(this@FormVagaActivity),
                             cargo,
                             empresa,
                             descricao,
                             horario,
                             0L,
                             requisitosLst.toList(),
+                            emptyList(),
                             ""
                         )
                     } else {

@@ -67,7 +67,7 @@ class VagaDao {
     fun recuperarMinhasVagas(
         activity: Activity,
         progressBar: ProgressBar,
-        vagasRecuperadas: (vagas: List<Vaga>?) -> Unit
+        vagasRecuperadas: (vagas: List<Vaga>) -> Unit
     ) {
         val vagasLst = mutableListOf<Vaga>()
 
@@ -84,7 +84,9 @@ class VagaDao {
                                 vagasLst.add(vaga)
                             }
                         }
-                        vagasRecuperadas(vagasLst)
+                        vagasRecuperadas(vagasLst.toList())
+                    }else{
+                        vagasRecuperadas(emptyList())
                     }
                 }
 
@@ -130,7 +132,7 @@ class VagaDao {
     }
 
 
-    private fun getIdUser(context: Context): String? {
+    fun getIdUser(context: Context): String? {
         FirebaseAuth.getInstance().currentUser?.let {
             return it.uid
         }
