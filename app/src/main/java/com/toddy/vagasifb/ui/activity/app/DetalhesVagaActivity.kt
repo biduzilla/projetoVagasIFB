@@ -55,13 +55,13 @@ class DetalhesVagaActivity : AppCompatActivity() {
 
     private fun preencheDados(vaga: Vaga) {
         with(binding) {
-            imgVaga.tentaCarregarImagem(vaga.imagem)
+            imgVaga.tentaCarregarImagem(vaga.imagem!!)
             tvCargo.text = vaga.cargo
             tvDescricao.text = vaga.descricao
             tvHorario.text = "Horário da vaga: ${vaga.horario}"
             toolbarMenu.tvTitulo.text = vaga.empresa
 
-            vaga.requisitos.forEach {requisito ->
+            vaga.requisitos!!.forEach {requisito ->
                 TextView(this@DetalhesVagaActivity).apply {
                     text = requisito
                     Log.i("infoteste", requisito)

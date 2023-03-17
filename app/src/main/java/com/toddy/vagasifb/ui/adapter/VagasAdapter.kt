@@ -36,8 +36,8 @@ class VagasAdapter(
             with(binding) {
                 tvCargo.text = vaga.cargo
                 tvEmpresa.text = vaga.empresa
-                tvData.text = GetMask.getDate(vaga.dataPostada, 1)
-                imgVaga.tentaCarregarImagem(vaga.imagem)
+                tvData.text = GetMask.getDate(vaga.dataPostada!!, 1)
+                imgVaga.tentaCarregarImagem(vaga.imagem!!)
             }
         }
     }

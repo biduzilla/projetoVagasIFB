@@ -15,12 +15,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.toddy.vagasifb.R
@@ -115,30 +111,29 @@ class FormVagaActivity : AppCompatActivity() {
                     btnSalvar.visibility = View.GONE
                     progressBar.visibility = View.VISIBLE
 
-                    if (vaga == null) vaga = Vaga("", "", "", "", "", 0L, emptyList(), "")
-
-                    vaga?.let { vaga ->
-                        FirebaseDatabase.getInstance().reference.apply {
-                            push().key?.let { id ->
-                                vaga.id = id
-                                salvarImagemFirebase(id)
-                            }
-                        }
-                        vaga.cargo = cargo
-                        vaga.empresa = empresa
-                        vaga.descricao = descricao
-                        vaga.horario = horario
-                        vaga.requisitos = requisitos.split(",").toList()
-                        vaga.imagem = caminhoImagem!!
-
-                        VagaDao().salvarVagaUser(vaga, this@FormVagaActivity, true)
-
-                        btnSalvar.visibility = View.VISIBLE
-                        progressBar.visibility = View.GONE
-                    }
+                    if (vaga == null) vaga = Vaga(
+                        "",
+                        cargo,
+                        empresa,
+                        descricao,
+                        horario,
+                        0L,
+                        requisitos.split(",").toList(),
+                        ""
+                    )
+                    salvarVaga(vaga!!)
                 }
             }
         }
+    }
+
+    private fun salvarVaga(vaga: Vaga) {
+            FirebaseDatabase.getInstance().reference.apply {
+                push().key?.let { id ->
+                    vaga.id = id
+                    salvarImagemFirebase(id)
+                }
+            }
     }
 
     private fun salvarImagemFirebase(idVaga: String) {
@@ -146,6 +141,12 @@ class FormVagaActivity : AppCompatActivity() {
             VagaDao().salvarImagemVagaFirebase(it, idVaga, this) { url ->
                 url?.let {
                     vaga!!.imagem = url
+
+                    VagaDao().salvarVagaUser(
+                        vaga!!,
+                        this@FormVagaActivity,
+                        true,
+                    )
                 }
             }
         }
@@ -277,7 +278,10 @@ class FormVagaActivity : AppCompatActivity() {
                                 )
                             } else {
                                 val source: ImageDecoder.Source =
-                                    ImageDecoder.createSource(contentResolver, imagemSelecionada)
+                                    ImageDecoder.createSource(
+                                        contentResolver,
+                                        imagemSelecionada
+                                    )
                                 ImageDecoder.decodeBitmap(source)
                             }
                             binding.imgAdd.visibility = View.GONE
