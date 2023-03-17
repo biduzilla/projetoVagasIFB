@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/menu_cv"
+        android:icon="@drawable/ic_cv"
+        android:title="@string/curriculo" />
+    <item
+        android:id="@+id/menu_vagas"
+        android:icon="@drawable/ic_vagas"
+        android:title="@string/vagas" />
+</menu>
