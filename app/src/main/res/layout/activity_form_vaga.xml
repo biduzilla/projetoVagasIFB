@@ -124,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/descricao"
                     android:inputType="text"
+                    android:paddingBottom="48dp"
                     android:textColor="@color/primary_text_color"
                     android:textColorHint="@color/dark_primary_color" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -173,8 +174,6 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/requisitos"
                     android:inputType="text"
-                    android:paddingBottom="48dp"
-
                     android:textColor="@color/primary_text_color"
                     android:textColorHint="@color/dark_primary_color" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -184,7 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/bg_btn"
+                android:background="@drawable/bg_btn_vermelho"
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="1dp"

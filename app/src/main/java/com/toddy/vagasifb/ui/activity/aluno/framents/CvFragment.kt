@@ -6,16 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.toddy.vagasifb.R
+import com.toddy.vagasifb.databinding.FragmentCvBinding
 
 
 class CvFragment : Fragment() {
 
+    private var _binding : FragmentCvBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cv, container, false)
+    ): View {
+        _binding = FragmentCvBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 

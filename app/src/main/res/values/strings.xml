@@ -28,4 +28,11 @@
     <string name="curriculo">Currículo</string>
     <string name="vagas">Vagas</string>
     <string name="pesquisar_vaga">Pesquisar Vaga</string>
+    <string name="nome">Nome</string>
+    <string name="telefone">Telefone</string>
+    <string name="sobre">Sobre</string>
+    <string name="semestre">Semestre</string>
+    <string name="experiencias">Experiências</string>
+    <string name="qualificacoes">Qualificações</string>
+    <string name="cv_not_found">Você ainda não cadastrou seu CV</string>
 </resources>
