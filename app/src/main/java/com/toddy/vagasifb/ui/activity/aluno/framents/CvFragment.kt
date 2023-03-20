@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.toddy.vagasifb.R
 import com.toddy.vagasifb.database.AlunoDao
 import com.toddy.vagasifb.databinding.FragmentCvBinding
+import com.toddy.vagasifb.extensions.iniciaActivity
+import com.toddy.vagasifb.ui.activity.aluno.CadastrarCvActivity
 
 
 class CvFragment : Fragment() {
@@ -25,7 +27,8 @@ class CvFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        configClicks()
+        binding.toolbarVoltar.tvTitulo.text = "Meu Currículo"
 
     }
 
@@ -34,13 +37,24 @@ class CvFragment : Fragment() {
         recuperaCv()
     }
 
+    private fun configClicks() {
+        activity?.let { activity ->
+            with(binding) {
+                btnCadastrarCv.setOnClickListener {
+                    activity.iniciaActivity(CadastrarCvActivity::class.java)
+                }
+            }
+        }
+
+    }
+
     private fun recuperaCv() {
         activity?.let {
             AlunoDao().recuperaCv(it).let { cvExist ->
-                with(binding){
+                with(binding) {
                     if (!cvExist) {
                         llInfo.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         scrollView.visibility = View.VISIBLE
                         llInfo.visibility = View.GONE
                     }
@@ -49,6 +63,5 @@ class CvFragment : Fragment() {
             }
         }
     }
-
 
 }

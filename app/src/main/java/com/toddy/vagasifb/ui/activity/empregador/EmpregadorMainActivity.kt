@@ -42,10 +42,10 @@ class EmpregadorMainActivity : AppCompatActivity() {
         VagaDao().recuperarMinhasVagas(this, binding.progressBar) {
             if (it.isEmpty()) {
                 adapter.atualiza(emptyList())
-                binding.tvInfo.visibility = View.VISIBLE
+                binding.llInfo.visibility = View.VISIBLE
             } else {
                 adapter.atualiza(it)
-                binding.tvInfo.visibility = View.GONE
+                binding.llInfo.visibility = View.GONE
             }
         }
     }

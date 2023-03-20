@@ -125,9 +125,9 @@ class FormVagaActivity : AppCompatActivity() {
                     edtRequisitos.requestFocus()
                     edtRequisitos.error = "Campo Obrigatório"
                 }
-                !requisitos.contains(",") -> {
+                !requisitos.contains(".") -> {
                     edtRequisitos.requestFocus()
-                    edtRequisitos.error = "Coloque vírgula no final de cada requisito"
+                    edtRequisitos.error = "Coloque '.' no final de cada requisito"
                 }
 
                 else -> {

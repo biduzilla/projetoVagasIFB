@@ -5,10 +5,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Curriculo(
-    val nome: String? = null,
-    val telefone: String? = null,
-    val sobre: String? = null,
-    val semestre: String? = null,
-    val experiencias: List<String>? = null,
-    val qualificacoes: List<String>? = null,
+    var id: String? = null,
+    var nome: String? = null,
+    var telefone: String? = null,
+    var sobre: String? = null,
+    var semestre: String? = null,
+    var experiencias: List<String>? = null,
+    var qualificacoes: List<String>? = null,
+    var historico: List<String>? = null,
 ) : Parcelable

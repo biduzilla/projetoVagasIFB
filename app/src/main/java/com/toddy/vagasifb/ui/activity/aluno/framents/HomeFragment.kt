@@ -48,20 +48,30 @@ class HomeFragment : Fragment() {
         super.onResume()
         vagasRecuperadas.clear()
         VagaDao().recuperarVagas(requireActivity()) { vagas ->
-            if (vagas == null) {
-                adapter.atualiza(emptyList())
-            } else {
+            with(binding) {
+                if (vagas == null) {
+                    adapter.atualiza(emptyList())
 
-                vagasRecuperadas.addAll(vagas)
+                    llInfo.visibility = View.VISIBLE
+                    rvVagas.visibility = View.GONE
 
-                val lstVagas = mutableListOf<Vaga>()
-                vagas.forEachIndexed { index, vaga ->
-                    if (index <= 10) {
-                        lstVagas.add(vaga)
+                } else {
+
+                    llInfo.visibility = View.GONE
+                    rvVagas.visibility = View.VISIBLE
+
+                    vagasRecuperadas.addAll(vagas)
+
+                    val lstVagas = mutableListOf<Vaga>()
+                    vagas.forEachIndexed { index, vaga ->
+                        if (index <= 10) {
+                            lstVagas.add(vaga)
+                        }
                     }
+                    adapter.atualiza(lstVagas)
                 }
-                adapter.atualiza(lstVagas)
             }
+
         }
     }
 
