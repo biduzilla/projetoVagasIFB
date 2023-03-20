@@ -6,18 +6,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.R
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityDetalhesVagaBinding
 import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
-import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.extensions.tentaCarregarImagem
 import com.toddy.vagasifb.model.Vaga
-import com.toddy.vagasifb.ui.activity.*
-import com.toddy.vagasifb.ui.activity.empregador.EmpregadorMainActivity
+import com.toddy.vagasifb.ui.activity.CHAVE_USER
+import com.toddy.vagasifb.ui.activity.CHAVE_VAGA
+import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
 import com.toddy.vagasifb.ui.activity.empregador.FormVagaActivity
 
 class DetalhesVagaActivity : AppCompatActivity() {
@@ -88,7 +87,7 @@ class DetalhesVagaActivity : AppCompatActivity() {
                     TextView(this@DetalhesVagaActivity).apply {
                         text = requisito
                         textSize = 18f
-                        setPadding(0, 0, 0, 8)
+                        this.setPadding(0, 0, 0, 16)
                         setTextColor(Color.parseColor("#212121"))
                         llRequisitos.addView(this)
                     }

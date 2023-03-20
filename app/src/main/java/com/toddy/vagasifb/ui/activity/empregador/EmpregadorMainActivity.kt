@@ -43,8 +43,10 @@ class EmpregadorMainActivity : AppCompatActivity() {
             if (it.isEmpty()) {
                 adapter.atualiza(emptyList())
                 binding.llInfo.visibility = View.VISIBLE
+                binding.rvVagas.visibility = View.GONE
             } else {
                 adapter.atualiza(it)
+                binding.rvVagas.visibility = View.VISIBLE
                 binding.llInfo.visibility = View.GONE
             }
         }
