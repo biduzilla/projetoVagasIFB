@@ -139,4 +139,12 @@ class UserDao {
         Toast.makeText(context, "Usuario não logado na conta", Toast.LENGTH_SHORT).show()
         return null
     }
+
+    fun getEmailUser(context: Context): String? {
+        FirebaseAuth.getInstance().currentUser?.let {
+            return it.email
+        }
+        Toast.makeText(context, "Usuario não logado na conta", Toast.LENGTH_SHORT).show()
+        return null
+    }
 }

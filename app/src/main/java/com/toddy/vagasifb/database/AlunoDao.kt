@@ -1,27 +1,34 @@
 package com.toddy.vagasifb.database
 
 import android.app.Activity
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.toddy.vagasifb.model.Curriculo
 
 class AlunoDao {
 
-    fun recuperaCv(activity: Activity): Boolean {
-        var cvExist = false
-        UserDao().getIdUser(activity.baseContext)?.let {
+    fun recuperaCv(
+        activity: Activity,
+        cvRecuperada: (cv: Curriculo?) -> Unit
+    ) {
+        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
             FirebaseDatabase.getInstance().reference
                 .child("alunos")
-                .child(it)
+                .child(idUser)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
-                            cvExist = true
-                        } else {
-                            cvExist = false
+                            snapshot.getValue(Curriculo::class.java)
+                                ?.let { cv ->
+                                    cvRecuperada(cv)
+                                }
+                        }else{
+                            cvRecuperada(null)
                         }
                     }
 
@@ -31,22 +38,19 @@ class AlunoDao {
 
                 })
         }
-        return cvExist
     }
 
     fun salvarCv(activity: Activity, curriculo: Curriculo) {
-        curriculo.id = FirebaseDatabase.getInstance().reference.push().key
-        curriculo.id?.let { id ->
-            UserDao().getIdUser(activity.baseContext)?.let {
-                FirebaseDatabase.getInstance().reference
-                    .child("alunos")
-                    .child(id)
-                    .setValue(curriculo)
 
-                activity.finish()
-            }
-        } ?: Toast.makeText(activity.baseContext, "Error ao cadastrar CV", Toast.LENGTH_SHORT)
-            .show()
+        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
+            FirebaseDatabase.getInstance().reference
+                .child("alunos")
+                .child(idUser)
+                .setValue(curriculo)
 
+            activity.finish()
+        }
     }
+
+
 }

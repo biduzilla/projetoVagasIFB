@@ -134,7 +134,6 @@ class VagaDao {
     fun recuperarVagas(activity: Activity, vagasRecuperada: (vagaLst: List<Vaga>?) -> Unit) {
 
         val vagas = mutableListOf<Vaga>()
-        Log.i("infoteste", "recuperarVagas")
         FirebaseDatabase.getInstance().reference
             .child("vagas")
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -142,7 +141,6 @@ class VagaDao {
                     if (snapshot.exists()) {
                         snapshot.children.forEach {
                             it.getValue(Vaga::class.java)?.let { vaga ->
-                                Log.i("infoteste", "Achou")
                                 vagas.add(vaga)
                             }
                         }
