@@ -1,11 +1,13 @@
 package com.toddy.vagasifb.ui.activity.aluno
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.database.AlunoDao
 import com.toddy.vagasifb.databinding.ActivityCadastrarCvBinding
 import com.toddy.vagasifb.model.Curriculo
+import com.toddy.vagasifb.ui.activity.CHAVE_CV_UPDATE
+import com.toddy.vagasifb.ui.activity.CHAVE_USER
 
 class CadastrarCvActivity : AppCompatActivity() {
 
@@ -17,9 +19,44 @@ class CadastrarCvActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.toolbarVoltar.tvTitulo.text = "Cadastrar Currículo"
+
 
         configClicks()
+        updateCv()
+    }
+
+    private fun updateCv() {
+        val isUpdate = intent.getBooleanExtra(CHAVE_CV_UPDATE, false)
+
+        if (isUpdate) {
+            binding.toolbarVoltar.tvTitulo.text = "Atualizar Currículo"
+            binding.btnLogin.text = "Atualizar"
+
+            AlunoDao().recuperaCv(this) { cv ->
+                cv?.let {
+                    preencheDados(cv)
+                }
+            }
+        } else {
+            binding.toolbarVoltar.tvTitulo.text = "Cadastrar Currículo"
+        }
+    }
+
+    private fun preencheDados(curriculo: Curriculo) {
+        with(binding) {
+            edtNome.setText(curriculo.nome)
+            edtTelefone.setText(curriculo.telefone)
+            edtSobre.setText(curriculo.sobre)
+            edtSemestre.setText(curriculo.semestre)
+            edtExpeiencias.setText(
+                curriculo.experiencias.toString().replace("[", "").replace("]", "")
+                    .replace(",", ".")
+            )
+            edtQualificacoes.setText(
+                curriculo.qualificacoes.toString().replace("[", "").replace("]", "")
+                    .replace(",", ".")
+            )
+        }
     }
 
     private fun configClicks() {

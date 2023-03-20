@@ -1,19 +1,20 @@
 package com.toddy.vagasifb.ui.activity.aluno.framents
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.toddy.vagasifb.R
+import androidx.fragment.app.Fragment
 import com.toddy.vagasifb.database.AlunoDao
 import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.databinding.FragmentCvBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.model.Curriculo
+import com.toddy.vagasifb.ui.activity.CHAVE_CV_UPDATE
+import com.toddy.vagasifb.ui.activity.CHAVE_USER
 import com.toddy.vagasifb.ui.activity.aluno.CadastrarCvActivity
 
 
@@ -21,6 +22,7 @@ class CvFragment : Fragment() {
 
     private var _binding: FragmentCvBinding? = null
     private val binding get() = _binding!!
+    private var curriculo = Curriculo()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,15 +34,15 @@ class CvFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configClicks()
         binding.toolbarVoltar.tvTitulo.text = "Meu Currículo"
-
+        configClicks()
     }
 
     override fun onResume() {
         super.onResume()
         limparLLView()
         recuperaCv()
+
     }
 
     private fun limparLLView() {
@@ -54,6 +56,16 @@ class CvFragment : Fragment() {
                 btnCadastrarCv.setOnClickListener {
                     activity.iniciaActivity(CadastrarCvActivity::class.java)
                 }
+                toolbarVoltar.btEdit.setOnClickListener {
+                    Intent(requireActivity(), CadastrarCvActivity::class.java).apply {
+                        var userId:String? = null
+                        UserDao().getIdUser(requireContext())?.let {
+                            userId = it
+                        }
+                        putExtra(CHAVE_CV_UPDATE, true)
+                        startActivity(this)
+                    }
+                }
             }
         }
     }
@@ -62,6 +74,7 @@ class CvFragment : Fragment() {
         activity?.let {
             AlunoDao().recuperaCv(it) { cvRecuperado ->
                 cvRecuperado?.let { cv ->
+                    curriculo = cv
                     showView(cv)
                 } ?: cvNaoEncontrado()
             }
