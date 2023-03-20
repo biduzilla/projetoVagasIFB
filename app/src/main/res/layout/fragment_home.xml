@@ -7,6 +7,12 @@
     android:background="@color/text_icon"
     tools:context=".ui.activity.aluno.framents.HomeFragment">
 
+    <include
+        android:id="@+id/toolbarSair"
+        layout="@layout/toolbar_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -16,7 +22,7 @@
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarSair">
 
         <EditText
             android:id="@+id/edtPesquisar"
@@ -29,6 +35,7 @@
             android:hint="@string/pesquisar_vaga"
             android:inputType="text"
             android:padding="16dp"
+            android:textColor="@color/primary_text_color"
             android:textColorHint="@color/secondary_text"
             app:drawableTint="@color/secondary_text"
             app:layout_constraintBottom_toBottomOf="parent"

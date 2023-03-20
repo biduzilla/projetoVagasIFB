@@ -24,13 +24,6 @@ class AlunoMainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavView, navController)
 
-        configClicks()
     }
 
-    private fun configClicks(){
-        binding.toolbarSair.btnSair.setOnClickListener {
-            iniciaActivity(LoginActivity::class.java)
-            finish()
-        }
-    }
 }

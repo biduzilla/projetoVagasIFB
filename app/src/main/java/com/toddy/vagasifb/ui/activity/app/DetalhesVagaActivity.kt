@@ -50,7 +50,6 @@ class DetalhesVagaActivity : AppCompatActivity() {
                 criarMenu()
             }
             toolbarMenu.btnVoltar.setOnClickListener {
-                iniciaActivity(EmpregadorMainActivity::class.java)
                 finish()
             }
         }
