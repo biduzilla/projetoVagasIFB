@@ -35,4 +35,5 @@
     <string name="experiencias">Experiências</string>
     <string name="qualificacoes">Qualificações</string>
     <string name="cv_not_found">Você ainda não cadastrou seu CV</string>
+    <string name="cadastrar_curriculo">Cadastrar Curriculo</string>
 </resources>

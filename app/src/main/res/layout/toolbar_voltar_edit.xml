@@ -24,9 +24,9 @@
         android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_titulo_arredondado"
         android:paddingHorizontal="32dp"
         android:paddingVertical="8dp"
-        android:background="@drawable/bg_titulo_arredondado"
         android:textColor="@color/dark_primary_color"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -36,19 +36,16 @@
         tools:text="Titulo" />
 
     <ImageButton
-        android:id="@+id/btnMenu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:src="@drawable/ic_menu"
+        android:paddingHorizontal="8dp"
+        android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    " />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

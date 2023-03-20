@@ -11,6 +11,7 @@
     <color name="dark_primary_color">#388E3C</color>
     <color name="light_primary_color">#C8E6C9</color>
     <color name="primary_color">#4CAF50</color>
+    <color name="primary_color_light">#5CCA61</color>
     <color name="text_icon">#FFFFFF</color>
     <color name="accent_color">#FF5252</color>
     <color name="accent_color_light">#FF7B7B</color>

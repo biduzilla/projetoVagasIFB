@@ -9,27 +9,10 @@
 
     <include
         android:id="@+id/toolbarVoltar"
-        layout="@layout/toolbar_voltar"
+        layout="@layout/toolbar_voltar_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/bg_arredondado_verde"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:text="@string/nome"
-        android:textAlignment="center"
-        android:textColor="@color/text_icon"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarVoltar" />
 
     <LinearLayout
         android:id="@+id/ll_info"
@@ -38,8 +21,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
-
-        app:layout_constraintBottom_toTopOf="@+id/btnSalvar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarVoltar"
@@ -59,6 +41,19 @@
             android:src="@drawable/ic_face_sad"
             app:tint="@color/dark_primary_color" />
 
+        <android.widget.Button
+            android:id="@+id/btnCadastrarCv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_btn_verde"
+            android:padding="16dp"
+            android:text="@string/cadastrar_curriculo"
+            android:textAllCaps="false"
+            android:textColor="@color/text_icon"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
 
@@ -66,15 +61,34 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/btnSalvar"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nome">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarVoltar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_arredondado_verde"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="@string/nome"
+                android:textAlignment="center"
+                android:textColor="@color/text_icon"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -85,7 +99,7 @@
                 app:cardElevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/tv_nome">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,6 +117,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_telefone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edt"
@@ -122,6 +137,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edt"
@@ -141,6 +157,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_sobre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edt"
@@ -160,6 +177,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_semestre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edt"
@@ -171,7 +189,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView4"
+                android:id="@+id/cardView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -219,7 +237,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView4">
+                app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -253,17 +271,5 @@
 
     </ScrollView>
 
-    <android.widget.Button
-        android:id="@+id/btnSalvar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:text="@string/editar"
-        android:textColor="@color/text_icon"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
