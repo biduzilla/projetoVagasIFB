@@ -6,8 +6,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.toddy.vagasifb.R
 import com.toddy.vagasifb.databinding.ActivityAlunoMainBinding
-import com.toddy.vagasifb.extensions.iniciaActivity
-import com.toddy.vagasifb.ui.activity.app.LoginActivity
 
 class AlunoMainActivity : AppCompatActivity() {
 

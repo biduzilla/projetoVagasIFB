@@ -62,6 +62,7 @@ class FormVagaActivity : AppCompatActivity() {
     private fun updateVaga() {
         vaga = intent.getParcelableExtra(CHAVE_VAGA)
         vaga?.let {
+            isUpdate = true
             preencheDados(it)
             binding.toolbarVoltar.tvTitulo.text = "Atualizar Vaga"
             binding.btnSalvar.text = "Atualizar"
