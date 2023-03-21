@@ -47,6 +47,10 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         vagasRecuperadas.clear()
+        tentaRecuperarVagas()
+    }
+
+    private fun tentaRecuperarVagas() {
         VagaDao().recuperarVagas(requireActivity()) { vagas ->
             with(binding) {
                 if (vagas == null) {
@@ -71,7 +75,6 @@ class HomeFragment : Fragment() {
                     adapter.atualiza(lstVagas)
                 }
             }
-
         }
     }
 

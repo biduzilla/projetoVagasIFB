@@ -157,8 +157,6 @@
 
                     </LinearLayout>
                 </LinearLayout>
-
-
             </androidx.cardview.widget.CardView>
 
             <android.widget.Button
