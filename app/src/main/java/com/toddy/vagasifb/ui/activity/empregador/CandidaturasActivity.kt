@@ -1,5 +1,6 @@
 package com.toddy.vagasifb.ui.activity.empregador
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import com.toddy.vagasifb.database.AlunoDao
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityCandidaturasBinding
 import com.toddy.vagasifb.model.Curriculo
+import com.toddy.vagasifb.ui.activity.CHAVE_CV_ID
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
 import com.toddy.vagasifb.ui.adapter.CurriculosAdapter
 
@@ -35,7 +37,10 @@ class CandidaturasActivity : AppCompatActivity() {
             rvCVs.adapter = adapter
             rvCVs.layoutManager = LinearLayoutManager(this@CandidaturasActivity)
             adapter.onClick = {
-                Toast.makeText(this@CandidaturasActivity, it.nome, Toast.LENGTH_SHORT).show()
+                Intent(baseContext, CurriculoActivity::class.java).apply {
+                    putExtra(CHAVE_CV_ID, it.id)
+                    startActivity(this)
+                }
             }
         }
     }

@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Curriculo(
+    var id: String? = null,
     var nome: String? = null,
     var email: String? = null,
     var telefone: String? = null,

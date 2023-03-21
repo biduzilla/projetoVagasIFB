@@ -42,6 +42,7 @@ class AlunoDao {
 
     fun salvarCv(activity: Activity, curriculo: Curriculo) {
         UserDao().getIdUser(activity)?.let { idUser ->
+            curriculo.id = idUser
             FirebaseDatabase.getInstance().reference
                 .child("alunos")
                 .child(idUser)
