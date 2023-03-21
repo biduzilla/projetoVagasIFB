@@ -14,9 +14,7 @@ import com.toddy.vagasifb.databinding.FragmentCvBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.model.Curriculo
 import com.toddy.vagasifb.ui.activity.CHAVE_CV_UPDATE
-import com.toddy.vagasifb.ui.activity.CHAVE_USER
 import com.toddy.vagasifb.ui.activity.aluno.CadastrarCvActivity
-
 
 class CvFragment : Fragment() {
 
@@ -58,14 +56,15 @@ class CvFragment : Fragment() {
                 }
                 toolbarVoltar.btEdit.setOnClickListener {
                     Intent(requireActivity(), CadastrarCvActivity::class.java).apply {
-                        var userId:String? = null
-                        UserDao().getIdUser(requireContext())?.let {
+                        var userId: String? = null
+                        UserDao().getIdUser(requireActivity())?.let {
                             userId = it
                         }
                         putExtra(CHAVE_CV_UPDATE, true)
                         startActivity(this)
                     }
                 }
+                toolbarVoltar.btnVoltar.visibility = View.GONE
             }
         }
     }

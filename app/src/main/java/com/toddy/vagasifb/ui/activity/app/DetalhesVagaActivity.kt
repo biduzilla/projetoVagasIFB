@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.R
+import com.toddy.vagasifb.database.AlunoDao
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityDetalhesVagaBinding
 import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
@@ -38,6 +39,10 @@ class DetalhesVagaActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.llRequisitos.removeAllViews()
+
+        binding.scrollView.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+
         tentaCarregarVaga()
     }
 
@@ -48,6 +53,9 @@ class DetalhesVagaActivity : AppCompatActivity() {
             }
             toolbarMenu.btnVoltar.setOnClickListener {
                 finish()
+            }
+            btnLogin.setOnClickListener {
+                AlunoDao().participarVaga()
             }
         }
     }
@@ -61,6 +69,7 @@ class DetalhesVagaActivity : AppCompatActivity() {
                 vaga = it
                 vaga?.let { vagaRecuperada ->
                     preencheDados(vagaRecuperada)
+                    binding.scrollView.visibility = View.VISIBLE
                 }
             }
         }

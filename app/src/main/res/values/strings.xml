@@ -36,4 +36,7 @@
     <string name="qualificacoes">Qualificações</string>
     <string name="cv_not_found">Você ainda não cadastrou seu CV</string>
     <string name="cadastrar_curriculo">Cadastrar Curriculo</string>
+    <string name="fazer_o_login">Fazer o login</string>
+    <string name="dejesa_apagar_a_vaga">Você tem certeza que dejesa apagar a vaga?</string>
+    <string name="nao_logado">Você não está logado na sua conta, faça o login para poder acessar o app</string>
 </resources>

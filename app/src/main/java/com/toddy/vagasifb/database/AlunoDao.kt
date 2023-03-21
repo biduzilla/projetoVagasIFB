@@ -13,7 +13,7 @@ class AlunoDao {
         activity: Activity,
         cvRecuperada: (cv: Curriculo?) -> Unit
     ) {
-        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity)?.let { idUser ->
             FirebaseDatabase.getInstance().reference
                 .child("alunos")
                 .child(idUser)
@@ -39,13 +39,19 @@ class AlunoDao {
 
     fun salvarCv(activity: Activity, curriculo: Curriculo) {
 
-        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity)?.let { idUser ->
             FirebaseDatabase.getInstance().reference
                 .child("alunos")
                 .child(idUser)
                 .setValue(curriculo)
 
             activity.finish()
+        }
+    }
+
+    fun participarVaga(activity: Activity) {
+        UserDao().getIdUser(activity)?.let {
+
         }
     }
 

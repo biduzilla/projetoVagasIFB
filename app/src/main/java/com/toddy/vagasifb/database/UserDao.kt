@@ -3,11 +3,14 @@ package com.toddy.vagasifb.database
 import android.app.Activity
 import android.content.Context
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
+import com.toddy.vagasifb.databinding.DialogUserLogarBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.model.User
 import com.toddy.vagasifb.ui.activity.aluno.AlunoMainActivity
@@ -94,7 +97,7 @@ class UserDao {
     }
 
     private fun redirecionaAcesso(activity: Activity) {
-        getIdUser(activity.baseContext)?.let { userId ->
+        getIdUser(activity)?.let { userId ->
             FirebaseDatabase.getInstance().reference
                 .child("usuarios")
                 .child("alunos")
@@ -116,6 +119,7 @@ class UserDao {
                                             activity.finish()
                                         }
                                     }
+
                                     override fun onCancelled(error: DatabaseError) {
                                         TODO("Not yet implemented")
                                     }
@@ -132,19 +136,42 @@ class UserDao {
         }
     }
 
-    fun getIdUser(context: Context): String? {
+    fun getIdUser(activity: Activity): String? {
         FirebaseAuth.getInstance().currentUser?.let {
             return it.uid
         }
-        Toast.makeText(context, "Usuario não logado na conta", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity.baseContext, "Usuario não logado na conta", Toast.LENGTH_SHORT)
+            .show()
+        dialogLogarNovamente(activity)
         return null
     }
 
-    fun getEmailUser(context: Context): String? {
+    fun getEmailUser(activity: Activity): String? {
         FirebaseAuth.getInstance().currentUser?.let {
             return it.email
         }
-        Toast.makeText(context, "Usuario não logado na conta", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity.baseContext, "Usuario não logado na conta", Toast.LENGTH_SHORT)
+            .show()
+
         return null
     }
+
+    private fun dialogLogarNovamente(activity: Activity) {
+        DialogUserLogarBinding.inflate(activity.layoutInflater).apply {
+            val dialog = AlertDialog.Builder(activity)
+                .setView(root)
+                .create()
+
+            dialog.setCancelable(false)
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.show()
+
+            btnLogin.setOnClickListener {
+                FirebaseAuth.getInstance().signOut()
+                activity.iniciaActivity(LoginActivity::class.java)
+                activity.finish()
+            }
+        }
+    }
+
 }

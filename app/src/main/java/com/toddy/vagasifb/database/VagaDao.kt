@@ -16,10 +16,10 @@ class VagaDao {
     fun salvarImagemVagaFirebase(
         imagem: String,
         idVaga: String,
-        context: Context,
+        activity: Activity,
         urlCriado: (url: String?) -> Unit
     ) {
-        UserDao().getIdUser(context)?.let { idUser ->
+        UserDao().getIdUser(activity)?.let { idUser ->
             val storage = FirebaseStorage.getInstance().reference
                 .child("imagens")
                 .child("vagas")
@@ -33,14 +33,14 @@ class VagaDao {
                         urlCriado(task.result.toString())
                     }
                 }.addOnFailureListener {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity.baseContext, it.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
     fun salvarVagaUser(vaga: Vaga, activity: Activity, isNovo: Boolean) {
-        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity)?.let { idUser ->
 
             val vagaMeuRef = FirebaseDatabase.getInstance().reference
                 .child("empregadores")
@@ -70,7 +70,7 @@ class VagaDao {
     ) {
         val vagasLst = mutableListOf<Vaga>()
 
-        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity)?.let { idUser ->
             val minhasVagasRef = FirebaseDatabase.getInstance().reference
                 .child("empregadores")
                 .child(idUser)
@@ -104,7 +104,7 @@ class VagaDao {
         progressBar: ProgressBar,
         vagasRecuperada: (vaga: Vaga?) -> Unit
     ) {
-        UserDao().getIdUser(activity.baseContext)?.let {
+        UserDao().getIdUser(activity)?.let {
             FirebaseDatabase.getInstance().reference
                 .child("vagas")
                 .child(idVaga)
@@ -155,7 +155,7 @@ class VagaDao {
     }
 
     fun apagarVaga(activity: Activity, vagaId: String) {
-        UserDao().getIdUser(activity.baseContext)?.let { idUser ->
+        UserDao().getIdUser(activity)?.let { idUser ->
 
             FirebaseDatabase.getInstance().reference
                 .child("empregadores")

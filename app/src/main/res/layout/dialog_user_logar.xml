@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/dejesa_apagar_a_vaga"
+            android:text="@string/nao_logado"
             android:textAlignment="center"
             android:textColor="@color/primary_text_color"
             android:textSize="18sp" />
@@ -34,30 +34,16 @@
             android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
+
             <android.widget.Button
-                android:id="@+id/btnApagar"
-                android:layout_width="match_parent"
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn_vermelho"
-
-                android:text="@string/apagar_vaga"
-                android:textAllCaps="false"
-                android:textColor="@color/text_icon"
-                android:textSize="16sp" />
-
-            <android.widget.Button
-                android:id="@+id/btnCancelar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_btn_vermelho"
-
-                android:text="@string/cancelar"
+                android:text="@string/fazer_o_login"
                 android:textAllCaps="false"
                 android:textColor="@color/text_icon"
                 android:textSize="16sp" />
