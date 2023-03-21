@@ -15,11 +15,13 @@ import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityDetalhesVagaBinding
 import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
 import com.toddy.vagasifb.databinding.DialogDetalhesVagaParticiparBinding
+import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.extensions.tentaCarregarImagem
 import com.toddy.vagasifb.model.Vaga
 import com.toddy.vagasifb.ui.activity.CHAVE_USER
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
+import com.toddy.vagasifb.ui.activity.empregador.CandidaturasActivity
 import com.toddy.vagasifb.ui.activity.empregador.FormVagaActivity
 
 class DetalhesVagaActivity : AppCompatActivity() {
@@ -53,7 +55,7 @@ class DetalhesVagaActivity : AppCompatActivity() {
         AlunoDao().recuperaCv(this) { cv ->
             cv?.let {
                 if (it.historico.contains(vagaId)) {
-                    binding.btnLogin.text = "Inscrição Feita"
+                    binding.btnLogin.text = "Inscrição Realizada"
                     binding.btnLogin.isEnabled = false
                 }
             }
@@ -70,8 +72,11 @@ class DetalhesVagaActivity : AppCompatActivity() {
                 finish()
             }
             btnLogin.setOnClickListener {
-
-                showDialogConfirmacao()
+                if (isUser) {
+                    showDialogConfirmacao()
+                }else{
+                    iniciaActivity(CandidaturasActivity::class.java)
+                }
             }
         }
     }

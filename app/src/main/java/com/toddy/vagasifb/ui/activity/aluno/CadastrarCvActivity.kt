@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.database.AlunoDao
+import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.databinding.ActivityCadastrarCvBinding
 import com.toddy.vagasifb.model.Curriculo
 import com.toddy.vagasifb.ui.activity.CHAVE_CV_UPDATE
@@ -18,8 +19,6 @@ class CadastrarCvActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-
 
         configClicks()
         updateCv()
@@ -133,8 +132,8 @@ class CadastrarCvActivity : AppCompatActivity() {
 
                     salvarCv(
                         Curriculo(
-                            id = "",
                             nome = nome,
+                            email = UserDao().getEmailUser(this@CadastrarCvActivity),
                             telefone = telefone,
                             sobre = sobre,
                             semestre = semestre,
