@@ -1,6 +1,7 @@
 package com.toddy.vagasifb.database
 
 import android.app.Activity
+import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -24,7 +25,7 @@ class AlunoDao {
                                 ?.let { cv ->
                                     cvRecuperada(cv)
                                 }
-                        }else{
+                        } else {
                             cvRecuperada(null)
                         }
                     }
@@ -38,7 +39,6 @@ class AlunoDao {
     }
 
     fun salvarCv(activity: Activity, curriculo: Curriculo) {
-
         UserDao().getIdUser(activity)?.let { idUser ->
             FirebaseDatabase.getInstance().reference
                 .child("alunos")
@@ -49,9 +49,24 @@ class AlunoDao {
         }
     }
 
-    fun participarVaga(activity: Activity) {
+    fun participarVaga(activity: Activity, idVaga: String) {
         UserDao().getIdUser(activity)?.let {
-
+            recuperaCv(activity) {
+                it?.let {
+                    val cv = it
+                    cv.historico.add(idVaga)
+                    salvarCv(activity, cv)
+                    Toast.makeText(
+                        activity.baseContext,
+                        "Currículo enviado com sucesso!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } ?: Toast.makeText(
+                    activity.baseContext,
+                    "Currículo não cadastrado, cadastre um para poder participar da vaga",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

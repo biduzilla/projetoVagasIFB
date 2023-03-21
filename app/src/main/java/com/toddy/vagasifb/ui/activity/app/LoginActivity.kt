@@ -69,5 +69,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(email: String, senha: String) {
         UserDao().login(this, email, senha)
+        binding.progressBar.visibility = View.GONE
+        binding.btnLogin.visibility = View.VISIBLE
     }
 }

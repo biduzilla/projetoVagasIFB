@@ -140,7 +140,6 @@ class CadastrarCvActivity : AppCompatActivity() {
                             semestre = semestre,
                             experiencias = experienciaLst,
                             qualificacoes = qualificacoesLst,
-                            emptyList()
                         )
                     )
                 }

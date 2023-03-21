@@ -12,5 +12,5 @@ data class Curriculo(
     var semestre: String? = null,
     var experiencias: List<String>? = null,
     var qualificacoes: List<String>? = null,
-    var historico: List<String>? = null,
+    var historico: MutableList<String> = mutableListOf(),
 ) : Parcelable

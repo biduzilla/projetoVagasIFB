@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.R
@@ -55,7 +56,13 @@ class DetalhesVagaActivity : AppCompatActivity() {
                 finish()
             }
             btnLogin.setOnClickListener {
-                AlunoDao().participarVaga()
+                if (isUser) {
+                    vagaId?.let {
+                        AlunoDao().participarVaga(this@DetalhesVagaActivity, it)
+                    }
+                } else {
+                    Toast.makeText(baseContext, "mostrar inscrições", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -80,6 +87,8 @@ class DetalhesVagaActivity : AppCompatActivity() {
 
         if (isUser) {
             binding.toolbarMenu.btnMenu.visibility = View.GONE
+        } else {
+            binding.btnLogin.text = "Inscrições da Vaga"
         }
     }
 

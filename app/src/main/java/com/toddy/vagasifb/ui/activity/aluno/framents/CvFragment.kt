@@ -101,7 +101,7 @@ class CvFragment : Fragment() {
     private fun preencheDados(curriculo: Curriculo) {
 
         with(binding) {
-            UserDao().getEmailUser(requireContext())?.let { email ->
+            UserDao().getEmailUser(requireActivity())?.let { email ->
                 tvEmail.text = email
             }
             tvNome.text = curriculo.nome
