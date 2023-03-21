@@ -43,4 +43,6 @@
     <string name="participar_vaga">Você deseja enviar seu currículo para participar da vaga?</string>
     <string name="sem_vaga_inscrita">Você não se inscreveu em nenhuma vaga</string>
     <string name="nenhum_cv">Nenhum Currículo enviado ainda</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="sem_prof">Você ainda não cadastrou professores</string>
 </resources>

@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener
 import com.toddy.vagasifb.databinding.DialogUserLogarBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.model.User
+import com.toddy.vagasifb.ui.activity.admin.ProfCadastradosActivity
 import com.toddy.vagasifb.ui.activity.aluno.AlunoMainActivity
 import com.toddy.vagasifb.ui.activity.app.LoginActivity
 import com.toddy.vagasifb.ui.activity.empregador.EmpregadorMainActivity
@@ -54,9 +55,15 @@ class UserDao {
 //            .child("empregador")
 //            .child(user.id)
 //            .setValue(user)
+//        FirebaseDatabase.getInstance().reference
+//            .child("usuarios")
+//            .child("alunos")
+//            .child(user.id)
+//            .setValue(user)
+
         FirebaseDatabase.getInstance().reference
             .child("usuarios")
-            .child("alunos")
+            .child("admin")
             .child(user.id)
             .setValue(user)
     }
@@ -109,13 +116,31 @@ class UserDao {
                         } else {
                             FirebaseDatabase.getInstance().reference
                                 .child("usuarios")
-                                .child("empregador")
+                                .child("admin")
                                 .child(userId)
                                 .addListenerForSingleValueEvent(object : ValueEventListener {
                                     override fun onDataChange(snapshot: DataSnapshot) {
                                         if (snapshot.exists()) {
-                                            activity.iniciaActivity(EmpregadorMainActivity::class.java)
+                                            activity.iniciaActivity(ProfCadastradosActivity::class.java)
                                             activity.finish()
+                                        } else {
+                                            FirebaseDatabase.getInstance().reference
+                                                .child("usuarios")
+                                                .child("empregador")
+                                                .child(userId)
+                                                .addListenerForSingleValueEvent(object :
+                                                    ValueEventListener {
+                                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                                        activity.iniciaActivity(
+                                                            EmpregadorMainActivity::class.java
+                                                        )
+                                                        activity.finish()
+                                                    }
+
+                                                    override fun onCancelled(error: DatabaseError) {
+                                                        TODO("Not yet implemented")
+                                                    }
+                                                })
                                         }
                                     }
 
