@@ -8,7 +8,6 @@ import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.databinding.ActivityCadastrarCvBinding
 import com.toddy.vagasifb.model.Curriculo
 import com.toddy.vagasifb.ui.activity.CHAVE_CV_UPDATE
-import com.toddy.vagasifb.ui.activity.CHAVE_USER
 
 class CadastrarCvActivity : AppCompatActivity() {
 
@@ -31,9 +30,12 @@ class CadastrarCvActivity : AppCompatActivity() {
             binding.toolbarVoltar.tvTitulo.text = "Atualizar Currículo"
             binding.btnLogin.text = "Atualizar"
 
-            AlunoDao().recuperaCv(this) { cv ->
-                cv?.let {
-                    preencheDados(cv)
+            UserDao().getIdUser(this)?.let { idRecuperado ->
+
+                AlunoDao().recuperaCv(this, idRecuperado) { cv ->
+                    cv?.let {
+                        preencheDados(cv)
+                    }
                 }
             }
         } else {

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.R
 import com.toddy.vagasifb.database.AlunoDao
+import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityDetalhesVagaBinding
 import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
@@ -18,6 +19,7 @@ import com.toddy.vagasifb.databinding.DialogDetalhesVagaParticiparBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.extensions.tentaCarregarImagem
 import com.toddy.vagasifb.model.Vaga
+import com.toddy.vagasifb.ui.activity.CHAVE_INSCRICOES
 import com.toddy.vagasifb.ui.activity.CHAVE_USER
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
@@ -52,16 +54,17 @@ class DetalhesVagaActivity : AppCompatActivity() {
     }
 
     private fun changeBtn() {
-        AlunoDao().recuperaCv(this) { cv ->
-            cv?.let {
-                if (it.historico.contains(vagaId)) {
-                    binding.btnLogin.text = "Inscrição Realizada"
-                    binding.btnLogin.isEnabled = false
+        UserDao().getIdUser(this)?.let { idUserRecuperado ->
+            AlunoDao().recuperaCv(this, idUserRecuperado) { cv ->
+                cv?.let {
+                    if (it.historico.contains(vagaId)) {
+                        binding.btnLogin.text = "Inscrição Realizada"
+                        binding.btnLogin.isEnabled = false
+                    }
                 }
             }
         }
     }
-
 
     private fun configClicks() {
         with(binding) {
@@ -74,8 +77,12 @@ class DetalhesVagaActivity : AppCompatActivity() {
             btnLogin.setOnClickListener {
                 if (isUser) {
                     showDialogConfirmacao()
-                }else{
-                    iniciaActivity(CandidaturasActivity::class.java)
+                } else {
+                    Intent(baseContext, CandidaturasActivity::class.java).apply {
+                        putExtra(CHAVE_VAGA_ID, vagaId)
+                        startActivity(this)
+                    }
+
                 }
             }
         }
@@ -113,11 +120,17 @@ class DetalhesVagaActivity : AppCompatActivity() {
                 vaga?.let { vagaRecuperada ->
                     preencheDados(vagaRecuperada)
                     binding.scrollView.visibility = View.VISIBLE
-                } ?: AlunoDao().recuperaCv(this) { cv ->
-                    cv?.let {
-                        cv.historico.remove(vagaId)
-                        finish()
-                    }
+                } ?: removerVagaCv()
+            }
+        }
+    }
+
+    private fun removerVagaCv() {
+        UserDao().getIdUser(this)?.let { idUserRecuperado ->
+            AlunoDao().recuperaCv(this, idUserRecuperado) { cv ->
+                cv?.let {
+                    cv.historico.remove(vagaId)
+                    finish()
                 }
             }
         }

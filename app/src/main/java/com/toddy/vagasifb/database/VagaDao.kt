@@ -37,23 +37,27 @@ class VagaDao {
         }
     }
 
-    fun salvarVagaUser(vaga: Vaga, activity: Activity, isNovo: Boolean, isSalvarCv: Boolean) {
-        UserDao().getIdUser(activity)?.let { idUser ->
+    fun salvarVagaUser(
+        vaga: Vaga,
+        activity: Activity,
+        isNovo: Boolean,
+        isSalvarCv: Boolean,
+        idUser: String
+    ) {
+        val vagaMeuRef = FirebaseDatabase.getInstance().reference
+            .child("empregadores")
+            .child(idUser)
+            .child(vaga.id!!)
 
-            val vagaMeuRef = FirebaseDatabase.getInstance().reference
-                .child("empregadores")
-                .child(idUser)
-                .child(vaga.id!!)
+        vagaMeuRef.setValue(vaga)
 
-            vagaMeuRef.setValue(vaga)
-
-            when {
-                !isSalvarCv -> salvarVagaPub(vaga, isNovo)
-                isNovo -> vagaMeuRef.child("dataPostada").setValue(ServerValue.TIMESTAMP)
-            }
-
-            activity.finish()
+        when {
+            !isSalvarCv -> salvarVagaPub(vaga, isNovo)
+            isNovo -> vagaMeuRef.child("dataPostada").setValue(ServerValue.TIMESTAMP)
         }
+
+        activity.finish()
+
     }
 
     fun salvarVagaPub(vaga: Vaga, isNovo: Boolean) {
@@ -118,6 +122,42 @@ class VagaDao {
                         if (snapshot.exists()) {
                             vagasRecuperada(snapshot.getValue(Vaga::class.java))
 
+                            progressBar?.let {
+                                it.visibility = View.GONE
+                            }
+
+                        } else {
+                            Toast.makeText(
+                                activity.baseContext,
+                                "Vaga não encontrada",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+        }
+    }
+
+    fun recuperarMinhaVaga(
+        activity: Activity,
+        idVaga: String,
+        progressBar: ProgressBar? = null,
+        vagasRecuperada: (vaga: Vaga?) -> Unit
+    ) {
+        UserDao().getIdUser(activity)?.let { idUser ->
+            FirebaseDatabase.getInstance().reference
+                .child("empregadores")
+                .child(idUser)
+                .child(idVaga)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            vagasRecuperada(snapshot.getValue(Vaga::class.java))
                             progressBar?.let {
                                 it.visibility = View.GONE
                             }

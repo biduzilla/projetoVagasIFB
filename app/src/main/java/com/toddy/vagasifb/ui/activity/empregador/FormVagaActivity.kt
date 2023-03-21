@@ -170,11 +170,13 @@ class FormVagaActivity : AppCompatActivity() {
                         if (caminhoImagem != null) {
                             salvarImagemFirebase(vaga!!.id!!)
                         } else {
-                            VagaDao().salvarVagaUser(
-                                vaga!!,
-                                this@FormVagaActivity,
-                                !isUpdate, false
-                            )
+                            UserDao().getIdUser(this@FormVagaActivity)?.let { idUserRecuperado ->
+                                VagaDao().salvarVagaUser(
+                                    vaga!!,
+                                    this@FormVagaActivity,
+                                    !isUpdate, false, idUserRecuperado
+                                )
+                            }
                         }
                     } else {
                         if (caminhoImagem != null) {
@@ -218,10 +220,15 @@ class FormVagaActivity : AppCompatActivity() {
                 url?.let {
                     vaga!!.imagem = url
 
-                    VagaDao().salvarVagaUser(
-                        vaga!!,
-                        this@FormVagaActivity, isNovo = !isUpdate, isSalvarCv = false
-                    )
+                    UserDao().getIdUser(this@FormVagaActivity)?.let { idUserRecuperado ->
+                        VagaDao().salvarVagaUser(
+                            vaga!!,
+                            this@FormVagaActivity,
+                            isNovo = !isUpdate,
+                            isSalvarCv = false,
+                            idUserRecuperado
+                        )
+                    }
                 }
             }
         }

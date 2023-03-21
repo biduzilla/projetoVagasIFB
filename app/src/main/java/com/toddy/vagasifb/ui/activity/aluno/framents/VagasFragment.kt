@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toddy.vagasifb.database.AlunoDao
+import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.FragmentVagasBinding
 import com.toddy.vagasifb.model.Curriculo
@@ -63,17 +64,19 @@ class VagasFragment : Fragment() {
 
     private fun tentaRecuperarVagas() {
         binding.progressBar.visibility = View.VISIBLE
-        AlunoDao().recuperaCv(requireActivity()) { cv ->
-            cv?.historico?.forEach { vagaId ->
-                VagaDao().recuperarVaga(requireActivity(), vagaId) { vaga ->
-                    vaga?.let { vagaRecuperada ->
-                        vagas.add(vagaRecuperada)
+        UserDao().getIdUser(requireActivity())?.let { idUserRecuperado ->
+            AlunoDao().recuperaCv(requireActivity(), idUserRecuperado) { cv ->
+                cv?.historico?.forEach { vagaId ->
+                    VagaDao().recuperarVaga(requireActivity(), vagaId) { vaga ->
+                        vaga?.let { vagaRecuperada ->
+                            vagas.add(vagaRecuperada)
 
-                        if (vagas.size == cv.historico.size){
-                            showView()
-                        }
+                            if (vagas.size == cv.historico.size) {
+                                showView()
+                            }
 
-                    } ?: atualizarHistoricoCv(cv, vagaId)
+                        } ?: atualizarHistoricoCv(cv, vagaId)
+                    }
                 }
             }
         }

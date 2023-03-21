@@ -70,14 +70,18 @@ class CvFragment : Fragment() {
     }
 
     private fun recuperaCv() {
-        activity?.let {
-            AlunoDao().recuperaCv(it) { cvRecuperado ->
-                cvRecuperado?.let { cv ->
-                    curriculo = cv
-                    showView(cv)
-                } ?: cvNaoEncontrado()
+        UserDao().getIdUser(requireActivity())?.let { idUserRecuperado ->
+            activity?.let {
+                AlunoDao().recuperaCv(it, idUserRecuperado) { cvRecuperado ->
+                    cvRecuperado?.let { cv ->
+                        curriculo = cv
+                        showView(cv)
+                    } ?: cvNaoEncontrado()
+                }
             }
         }
+
+
     }
 
     private fun cvNaoEncontrado() {

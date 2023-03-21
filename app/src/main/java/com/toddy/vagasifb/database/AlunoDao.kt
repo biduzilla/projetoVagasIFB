@@ -12,31 +12,33 @@ class AlunoDao {
 
     fun recuperaCv(
         activity: Activity,
+        idUser: String,
         cvRecuperada: (cv: Curriculo?) -> Unit
     ) {
-        UserDao().getIdUser(activity)?.let { idUser ->
-            FirebaseDatabase.getInstance().reference
-                .child("alunos")
-                .child(idUser)
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            snapshot.getValue(Curriculo::class.java)
-                                ?.let { cv ->
-                                    cvRecuperada(cv)
-                                }
-                        } else {
-                            cvRecuperada(null)
-                        }
-                    }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+        FirebaseDatabase.getInstance().reference
+            .child("alunos")
+            .child(idUser)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        snapshot.getValue(Curriculo::class.java)
+                            ?.let { cv ->
+                                cvRecuperada(cv)
+                            }
+                    } else {
+                        cvRecuperada(null)
                     }
+                }
 
-                })
-        }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
     }
+
 
     fun salvarCv(activity: Activity, curriculo: Curriculo) {
         UserDao().getIdUser(activity)?.let { idUser ->
@@ -50,8 +52,8 @@ class AlunoDao {
     }
 
     fun participarVaga(activity: Activity, idVaga: String) {
-        UserDao().getIdUser(activity)?.let {
-            recuperaCv(activity) {
+        UserDao().getIdUser(activity)?.let { idUser ->
+            recuperaCv(activity, idUser) {
                 it?.let {
                     val cv = it
                     cv.historico.add(idVaga)
@@ -65,7 +67,8 @@ class AlunoDao {
                                 VagaDao().salvarVagaUser(
                                     vaga, activity,
                                     isNovo = false,
-                                    isSalvarCv = true
+                                    isSalvarCv = true,
+                                    idUser = vaga.idDono!!
                                 )
                             }
                         }
