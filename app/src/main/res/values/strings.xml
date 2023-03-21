@@ -40,4 +40,5 @@
     <string name="dejesa_apagar_a_vaga">Você tem certeza que dejesa apagar a vaga?</string>
     <string name="nao_logado">Você não está logado na sua conta, faça o login para poder acessar o app</string>
     <string name="enviar_cv">Enviar Currículo</string>
+    <string name="participar_vaga">Você deseja enviar seu currículo para participar da vaga?</string>
 </resources>

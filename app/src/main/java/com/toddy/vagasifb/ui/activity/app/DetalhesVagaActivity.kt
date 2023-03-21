@@ -14,6 +14,7 @@ import com.toddy.vagasifb.database.AlunoDao
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityDetalhesVagaBinding
 import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
+import com.toddy.vagasifb.databinding.DialogDetalhesVagaParticiparBinding
 import com.toddy.vagasifb.extensions.tentaCarregarImagem
 import com.toddy.vagasifb.model.Vaga
 import com.toddy.vagasifb.ui.activity.CHAVE_USER
@@ -69,6 +70,24 @@ class DetalhesVagaActivity : AppCompatActivity() {
                 finish()
             }
             btnLogin.setOnClickListener {
+
+                showDialogConfirmacao()
+            }
+        }
+    }
+
+    private fun showDialogConfirmacao() {
+        DialogDetalhesVagaParticiparBinding.inflate(layoutInflater).apply {
+            val dialog = AlertDialog.Builder(this@DetalhesVagaActivity)
+                .setView(root)
+                .create()
+            dialog.show()
+
+            btnCancelar.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            btnEnviarCv.setOnClickListener {
                 if (isUser) {
                     vagaId?.let {
                         AlunoDao().participarVaga(this@DetalhesVagaActivity, it)
@@ -83,13 +102,17 @@ class DetalhesVagaActivity : AppCompatActivity() {
     private fun tentaCarregarVaga() {
         vagaId = intent.getStringExtra(CHAVE_VAGA_ID)
 
-
         vagaId?.let {
             VagaDao().recuperarVaga(this, vagaId!!, binding.progressBar) {
                 vaga = it
                 vaga?.let { vagaRecuperada ->
                     preencheDados(vagaRecuperada)
                     binding.scrollView.visibility = View.VISIBLE
+                } ?: AlunoDao().recuperaCv(this) { cv ->
+                    cv?.let {
+                        cv.historico.remove(vagaId)
+                        finish()
+                    }
                 }
             }
         }

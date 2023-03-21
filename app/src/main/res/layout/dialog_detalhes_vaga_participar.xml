@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:paddingHorizontal="16dp"
-            android:text="@string/dejesa_apagar_a_vaga"
+            android:text="@string/participar_vaga"
             android:textAlignment="center"
             android:textColor="@color/primary_text_color"
             android:textSize="18sp" />
@@ -36,15 +36,14 @@
             android:orientation="horizontal">
 
             <android.widget.Button
-                android:id="@+id/btnApagar"
+                android:id="@+id/btnEnviarCv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn_vermelho"
-
-                android:text="@string/apagar_vaga"
+                android:text="@string/enviar_cv"
                 android:textAllCaps="false"
                 android:textColor="@color/text_icon"
                 android:textSize="16sp" />
