@@ -20,6 +20,7 @@ class CurriculoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.toolbarVoltar.tvTitulo.visibility = View.GONE
         configClicks()
         tentaRecuperarDados()
     }
@@ -67,7 +68,7 @@ class CurriculoActivity : AppCompatActivity() {
                         textSize = 18f
                         this.setPadding(0, 0, 0, 16)
                         setTextColor(Color.parseColor("#212121"))
-                        llExpericencias.addView(this)
+                        llQualificacoes .addView(this)
                     }
                 }
             }

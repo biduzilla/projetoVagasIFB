@@ -20,7 +20,7 @@
         android:theme="@style/Theme.VagasIFB"
         tools:targetApi="31">
         <activity
-            android:name=".CurriculoActivity"
+            android:name=".ui.activity.empregador.CurriculoActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

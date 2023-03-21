@@ -15,6 +15,8 @@ class CadastrarCvActivity : AppCompatActivity() {
         ActivityCadastrarCvBinding.inflate(layoutInflater)
     }
 
+    private var curriculo = Curriculo()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -34,6 +36,7 @@ class CadastrarCvActivity : AppCompatActivity() {
 
                 AlunoDao().recuperaCv(this, idRecuperado) { cv ->
                     cv?.let {
+                        curriculo = cv
                         preencheDados(cv)
                     }
                 }
@@ -141,6 +144,7 @@ class CadastrarCvActivity : AppCompatActivity() {
                             semestre = semestre,
                             experiencias = experienciaLst,
                             qualificacoes = qualificacoesLst,
+                            historico = curriculo.historico
                         )
                     )
                 }
