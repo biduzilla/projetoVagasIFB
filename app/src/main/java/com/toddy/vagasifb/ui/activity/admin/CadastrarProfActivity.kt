@@ -1,7 +1,7 @@
 package com.toddy.vagasifb.ui.activity.admin
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.databinding.ActivityCadastrarProfBinding
 
 class CadastrarProfActivity : AppCompatActivity() {
@@ -13,4 +13,9 @@ class CadastrarProfActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
     }
+
+    private fun configClicks(){
+
+    }
+
 }

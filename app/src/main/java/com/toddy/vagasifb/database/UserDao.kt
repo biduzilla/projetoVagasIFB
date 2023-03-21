@@ -55,17 +55,17 @@ class UserDao {
 //            .child("empregador")
 //            .child(user.id)
 //            .setValue(user)
-//        FirebaseDatabase.getInstance().reference
-//            .child("usuarios")
-//            .child("alunos")
-//            .child(user.id)
-//            .setValue(user)
-
         FirebaseDatabase.getInstance().reference
             .child("usuarios")
-            .child("admin")
-            .child(user.id)
+            .child("alunos")
+            .child(user.id!!)
             .setValue(user)
+
+//        FirebaseDatabase.getInstance().reference
+//            .child("usuarios")
+//            .child("admin")
+//            .child(user.id)
+//            .setValue(user)
     }
 
     fun recuperarConta(context: Context, email: String) {

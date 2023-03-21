@@ -34,9 +34,7 @@ class AlunoDao {
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")
                 }
-
             })
-
     }
 
 
@@ -88,6 +86,4 @@ class AlunoDao {
             }
         }
     }
-
-
 }
