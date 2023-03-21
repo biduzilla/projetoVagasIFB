@@ -13,7 +13,7 @@ data class Vaga(
     var horario: String? = "",
     var dataPostada: Long? = 0L,
     var requisitos: List<String>? = null,
-    var candidaturas: List<String>? = null,
+    var candidaturas: MutableList<String> = mutableListOf(),
     var imagem: String? = ""
 ) : Parcelable
 

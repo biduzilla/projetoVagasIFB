@@ -154,7 +154,7 @@ class FormVagaActivity : AppCompatActivity() {
                             horario,
                             0L,
                             requisitosLst.toList(),
-                            emptyList(),
+                            emptyList<String>().toMutableList(),
                             ""
                         )
                     } else {
@@ -173,7 +173,7 @@ class FormVagaActivity : AppCompatActivity() {
                             VagaDao().salvarVagaUser(
                                 vaga!!,
                                 this@FormVagaActivity,
-                                !isUpdate,
+                                !isUpdate, false
                             )
                         }
                     } else {
@@ -220,8 +220,7 @@ class FormVagaActivity : AppCompatActivity() {
 
                     VagaDao().salvarVagaUser(
                         vaga!!,
-                        this@FormVagaActivity,
-                        !isUpdate,
+                        this@FormVagaActivity, isNovo = !isUpdate, isSalvarCv = false
                     )
                 }
             }

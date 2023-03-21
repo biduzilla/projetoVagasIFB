@@ -55,6 +55,21 @@ class AlunoDao {
                 it?.let {
                     val cv = it
                     cv.historico.add(idVaga)
+                    VagaDao().recuperarVaga(activity, idVaga) { vagaRecuperada ->
+
+                        vagaRecuperada?.let { vaga ->
+                            val userId = UserDao().getIdUser(activity)
+
+                            userId?.let {
+                                vaga.candidaturas.add(userId)
+                                VagaDao().salvarVagaUser(
+                                    vaga, activity,
+                                    isNovo = false,
+                                    isSalvarCv = true
+                                )
+                            }
+                        }
+                    }
                     salvarCv(activity, cv)
                     Toast.makeText(
                         activity.baseContext,

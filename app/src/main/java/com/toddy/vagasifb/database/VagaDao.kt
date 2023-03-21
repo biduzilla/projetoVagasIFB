@@ -1,9 +1,7 @@
 package com.toddy.vagasifb.database
 
 import android.app.Activity
-import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -39,7 +37,7 @@ class VagaDao {
         }
     }
 
-    fun salvarVagaUser(vaga: Vaga, activity: Activity, isNovo: Boolean) {
+    fun salvarVagaUser(vaga: Vaga, activity: Activity, isNovo: Boolean, isSalvarCv: Boolean) {
         UserDao().getIdUser(activity)?.let { idUser ->
 
             val vagaMeuRef = FirebaseDatabase.getInstance().reference
@@ -49,17 +47,24 @@ class VagaDao {
 
             vagaMeuRef.setValue(vaga)
 
-            val vagaPubRef = FirebaseDatabase.getInstance().reference
-                .child("vagas")
-                .child(vaga.id!!)
-
-            vagaPubRef.setValue(vaga)
-
-            if (isNovo) {
-                vagaMeuRef.child("dataPostada").setValue(ServerValue.TIMESTAMP)
-                vagaPubRef.child("dataPostada").setValue(ServerValue.TIMESTAMP)
+            when {
+                !isSalvarCv -> salvarVagaPub(vaga, isNovo)
+                isNovo -> vagaMeuRef.child("dataPostada").setValue(ServerValue.TIMESTAMP)
             }
+
             activity.finish()
+        }
+    }
+
+    fun salvarVagaPub(vaga: Vaga, isNovo: Boolean) {
+        val vagaPubRef = FirebaseDatabase.getInstance().reference
+            .child("vagas")
+            .child(vaga.id!!)
+
+        vagaPubRef.setValue(vaga)
+
+        if (isNovo) {
+            vagaPubRef.child("dataPostada").setValue(ServerValue.TIMESTAMP)
         }
     }
 
@@ -101,7 +106,7 @@ class VagaDao {
     fun recuperarVaga(
         activity: Activity,
         idVaga: String,
-        progressBar: ProgressBar,
+        progressBar: ProgressBar? = null,
         vagasRecuperada: (vaga: Vaga?) -> Unit
     ) {
         UserDao().getIdUser(activity)?.let {
@@ -112,7 +117,11 @@ class VagaDao {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
                             vagasRecuperada(snapshot.getValue(Vaga::class.java))
-                            progressBar.visibility = View.GONE
+
+                            progressBar?.let {
+                                it.visibility = View.GONE
+                            }
+
                         } else {
                             Toast.makeText(
                                 activity.baseContext,

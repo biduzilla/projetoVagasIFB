@@ -34,6 +34,7 @@ class DetalhesVagaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         desativarMenu()
+        changeBtn()
         configClicks()
     }
 
@@ -46,6 +47,18 @@ class DetalhesVagaActivity : AppCompatActivity() {
 
         tentaCarregarVaga()
     }
+
+    private fun changeBtn() {
+        AlunoDao().recuperaCv(this) { cv ->
+            cv?.let {
+                if (it.historico.contains(vagaId)) {
+                    binding.btnLogin.text = "Inscrição Feita"
+                    binding.btnLogin.isEnabled = false
+                }
+            }
+        }
+    }
+
 
     private fun configClicks() {
         with(binding) {
