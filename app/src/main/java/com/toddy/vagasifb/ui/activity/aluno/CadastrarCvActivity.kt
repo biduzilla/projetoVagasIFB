@@ -1,6 +1,7 @@
 package com.toddy.vagasifb.ui.activity.aluno
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.database.AlunoDao
@@ -131,7 +132,6 @@ class CadastrarCvActivity : AppCompatActivity() {
                     }
 
                     UserDao().getUser(activity = this@CadastrarCvActivity) {
-
 
                         salvarCv(
                             Curriculo(

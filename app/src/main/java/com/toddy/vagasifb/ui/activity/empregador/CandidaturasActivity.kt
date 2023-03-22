@@ -2,11 +2,9 @@ package com.toddy.vagasifb.ui.activity.empregador
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toddy.vagasifb.database.AlunoDao
 import com.toddy.vagasifb.database.UserDao

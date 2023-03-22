@@ -1,7 +1,9 @@
 package com.toddy.vagasifb.ui.activity.admin
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -39,6 +41,12 @@ class CadastrarProfActivity : AppCompatActivity() {
         }
     }
 
+    private fun ocultarTeclado() {
+        val imm =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.edtEmail.windowToken, 0)
+    }
+
     private fun validaDados() {
         with(binding) {
             val email: String = edtEmail.text.toString().trim()
@@ -59,6 +67,7 @@ class CadastrarProfActivity : AppCompatActivity() {
                     edtTelefone.error = "Campo Obrigatório"
                 }
                 else -> {
+                    ocultarTeclado()
                     btnLogin.visibility = View.GONE
                     progressBar.visibility = View.VISIBLE
 
