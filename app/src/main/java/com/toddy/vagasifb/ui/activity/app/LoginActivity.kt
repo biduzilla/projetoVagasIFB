@@ -8,6 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.databinding.ActivityLoginBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
+import com.toddy.vagasifb.ui.activity.CHAVE_LOGIN_SHARED_PREF
+import com.toddy.vagasifb.ui.activity.CHAVE_USER_EMAIL
+import com.toddy.vagasifb.ui.activity.CHAVE_USER_SENHA
+import com.toddy.vagasifb.utils.SharedPref
+import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
 
@@ -54,6 +59,8 @@ class LoginActivity : AppCompatActivity() {
                     ocultarTeclado()
                     progressBar.visibility = View.VISIBLE
                     btnLogin.visibility = View.GONE
+
+                    SharedPref(this@LoginActivity).salvarDadosLogin(email, senha)
 
                     login(email, senha)
                 }

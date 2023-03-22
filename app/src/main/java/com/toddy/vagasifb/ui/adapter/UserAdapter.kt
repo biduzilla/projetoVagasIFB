@@ -24,6 +24,7 @@ class UserAdapter(usuarios: List<User> = emptyList()) :
 
             with(binding) {
                 tvNome.text = user.email
+                tvTelefone.text = user.telefone
             }
         }
     }

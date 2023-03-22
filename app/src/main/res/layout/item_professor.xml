@@ -48,6 +48,17 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 tools:text="Nome" />
+
+            <TextView
+                android:id="@+id/tv_telefone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/text_icon"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                tools:text="telefone" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,9 +17,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_marginHorizontal="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,9 +37,9 @@
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/dark_primary_color"
             app:startIconDrawable="@drawable/ic_email"
-            app:startIconTint="@color/dark_primary_color"
-            app:boxStrokeColor="@color/dark_primary_color">
+            app:startIconTint="@color/dark_primary_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"
@@ -47,25 +47,26 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/dark_primary_color" />
+                android:textColorHint="@color/dark_primary_color"
+                android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/senha"
             android:layout_marginTop="16dp"
+            android:hint="@string/senha"
             android:textColorHint="@color/dark_primary_color"
             app:boxBackgroundColor="@color/light_primary_color"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
-            app:startIconDrawable="@drawable/ic_key"
-            app:startIconTint="@color/dark_primary_color"
             app:boxCornerRadiusTopEnd="10dp"
-
             app:boxCornerRadiusTopStart="10dp"
-            app:boxStrokeColor="@color/dark_primary_color">
+            app:boxStrokeColor="@color/dark_primary_color"
+
+            app:startIconDrawable="@drawable/ic_key"
+            app:startIconTint="@color/dark_primary_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtSenha"
@@ -73,7 +74,36 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/dark_primary_color" />
+                android:textColorHint="@color/dark_primary_color"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/telefone"
+            android:textColorHint="@color/dark_primary_color"
+            app:boxBackgroundColor="@color/light_primary_color"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:startIconDrawable="@drawable/ic_phone"
+            app:startIconTint="@color/dark_primary_color"
+            app:boxStrokeColor="@color/dark_primary_color">
+
+            <com.santalu.maskara.widget.MaskEditText
+                android:id="@+id/edtTelefone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/dark_primary_color"
+                app:mask=" (__) _____ - ____"
+                app:maskCharacter="_"
+                app:maskStyle="completable" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <android.widget.Button
@@ -106,7 +136,6 @@
             app:layout_constraintTop_toBottomOf="@+id/btnEsqueciSenha"
             tools:visibility="visible" />
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ class UserDao {
         context: Context,
         email: String,
         senha: String,
+        telefone: String,
         userCriado: (userCriado: User?) -> Unit
     ) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
@@ -34,6 +35,7 @@ class UserDao {
                             User(
                                 id = idUser,
                                 email = email,
+                                telefone = telefone,
                                 senha = senha
                             )
                         )
@@ -66,6 +68,15 @@ class UserDao {
 //            .child("admin")
 //            .child(user.id)
 //            .setValue(user)
+    }
+
+    fun salvarEmpregador(user: User) {
+        FirebaseDatabase.getInstance().reference
+            .child("usuarios")
+            .child("empregador")
+            .child(user.id!!)
+            .setValue(user)
+
     }
 
     fun recuperarConta(context: Context, email: String) {

@@ -61,6 +61,24 @@
                 android:textColor="@color/primary_text_color"
                 android:textColorHint="@color/secondary_text" />
 
+            <com.santalu.maskara.widget.MaskEditText
+                android:id="@+id/edtTelefone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_edt"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/primary_color"
+                android:hint="@string/telefone"
+                android:inputType="number"
+                android:padding="16dp"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text"
+                app:mask=" (__) _____ - ____"
+                app:maskCharacter="_"
+                app:maskStyle="completable" />
+
 
             <android.widget.Button
                 android:id="@+id/btnLogin"

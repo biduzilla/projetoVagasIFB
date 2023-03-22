@@ -36,6 +36,7 @@ class CadastroUserActivity : AppCompatActivity() {
         with(binding) {
             val email: String = edtEmail.text.toString().trim()
             val senha: String = edtSenha.text.toString().trim()
+            val telefone: String = edtTelefone.text.toString().trim()
 
             when {
                 email.isEmpty() -> {
@@ -46,18 +47,22 @@ class CadastroUserActivity : AppCompatActivity() {
                     edtEmail.requestFocus()
                     edtEmail.error = "Campo Obrigatório"
                 }
+                telefone.isEmpty() -> {
+                    edtTelefone.requestFocus()
+                    edtTelefone.error = "Campo Obrigatório"
+                }
                 else -> {
                     progressBar.visibility = View.VISIBLE
                     btnLogin.visibility = View.GONE
-                    salvarUser(email, senha)
+                    salvarUser(email, senha, telefone)
                 }
             }
         }
     }
 
-    private fun salvarUser(email: String, senha: String) {
+    private fun salvarUser(email: String, senha: String, telefone:String) {
         val userDao = UserDao()
-        userDao.criarConta( this, email, senha) { user ->
+        userDao.criarConta( this, email, senha, telefone) { user ->
             user?.let {
                 userDao.salvarUser(user)
                 finish()

@@ -32,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@color/text_icon"
+                app:cardBackgroundColor="@color/text_icon"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
-                app:cardBackgroundColor="@color/text_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,14 +83,16 @@
                         app:boxCornerRadiusTopStart="10dp"
                         app:boxStrokeColor="@color/dark_primary_color">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <com.santalu.maskara.widget.MaskEditText
                             android:id="@+id/edtTelefone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
                             android:inputType="number"
                             android:textColor="@color/primary_text_color"
-                            android:textColorHint="@color/dark_primary_color" />
+                            android:textColorHint="@color/dark_primary_color"
+                            app:mask=" (__) _____ - ____"
+                            app:maskCharacter="_"
+                            app:maskStyle="completable" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout

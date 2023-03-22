@@ -3,13 +3,16 @@ package com.toddy.vagasifb.ui.activity.admin
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.toddy.vagasifb.database.AdminDao
 import com.toddy.vagasifb.databinding.ActivityProfCadastradosBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.ui.activity.app.LoginActivity
 import com.toddy.vagasifb.ui.adapter.UserAdapter
+import com.toddy.vagasifb.utils.SharedPref
 
 class ProfCadastradosActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -24,10 +27,12 @@ class ProfCadastradosActivity : AppCompatActivity() {
 
         configClicks()
         configRv()
+
+
     }
 
     private fun configRv() {
-        with(binding){
+        with(binding) {
             rvProf.adapter = adapter
             rvProf.layoutManager = LinearLayoutManager(baseContext)
         }
@@ -41,13 +46,13 @@ class ProfCadastradosActivity : AppCompatActivity() {
     private fun recuperaUser() {
         AdminDao().recuperaUsers(this) { usuariosRecuperados ->
             with(binding) {
-                if (usuariosRecuperados != null){
+                if (usuariosRecuperados != null) {
                     Log.i("infoteste", "ok")
                     adapter.atualiza(usuariosRecuperados)
                     progressBar.visibility = View.GONE
                     binding.llInfo.visibility = View.GONE
                     rvProf.visibility = View.VISIBLE
-                }else{
+                } else {
                     Log.i("infoteste", "notOK")
                     progressBar.visibility = View.GONE
                     rvProf.visibility = View.GONE
