@@ -1,5 +1,6 @@
 package com.toddy.vagasifb.ui.activity.empregador
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.toddy.vagasifb.database.AlunoDao
+import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityCandidaturasBinding
 import com.toddy.vagasifb.model.Curriculo
@@ -62,27 +64,31 @@ class CandidaturasActivity : AppCompatActivity() {
 
     private fun recuperaDadosVaga() {
         intent.getStringExtra(CHAVE_VAGA_ID)?.let { vagaId ->
-            recuperaInscricoes(vagaId)
+            recuperaInscricoes(vagaId, this)
         }
     }
 
-    private fun recuperaInscricoes(vagaId: String) {
-        VagaDao().recuperarMinhaVaga(this, vagaId) { vagaRecuperada ->
-            vagaRecuperada?.let {
+    private fun recuperaInscricoes(vagaId: String, activity: Activity) {
+        UserDao().getIdUser(activity)?.let { idUser ->
 
-                binding.progressBar.visibility = View.GONE
+            VagaDao().recuperarMinhaVaga(this, vagaId, idUser) { vagaRecuperada ->
+                vagaRecuperada?.let {
 
-                val candidaturas = it.candidaturas
+                    binding.progressBar.visibility = View.GONE
 
-                if (candidaturas.isNotEmpty()) {
+                    val candidaturas = it.candidaturas
 
-                    recuperaCvParticipantes(candidaturas)
-                } else {
-                    binding.llInfo.visibility = View.VISIBLE
-                    binding.rvCVs.visibility = View.GONE
+                    if (candidaturas.isNotEmpty()) {
+
+                        recuperaCvParticipantes(candidaturas)
+                    } else {
+                        binding.llInfo.visibility = View.VISIBLE
+                        binding.rvCVs.visibility = View.GONE
+                    }
                 }
             }
         }
+
     }
 
     private fun recuperaCvParticipantes(candidaturas: MutableList<String>) {

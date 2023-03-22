@@ -57,18 +57,27 @@ class AlunoDao {
                     val cv = it
                     cv.historico.add(idVaga)
                     VagaDao().recuperarVaga(activity, idVaga) { vagaRecuperada ->
-
                         vagaRecuperada?.let { vaga ->
-                            val userId = UserDao().getIdUser(activity)
 
-                            userId?.let {
-                                vaga.candidaturas.add(userId)
-                                VagaDao().salvarVagaUser(
-                                    vaga, activity,
-                                    isNovo = false,
-                                    isSalvarCv = true,
-                                    idUser = vaga.idDono!!
-                                )
+                            VagaDao().recuperarMinhaVaga(
+                                activity,
+                                vagaRecuperada.id!!,
+                                vagaRecuperada.idDono!!
+                            ) { vagaDono ->
+
+                                vagaDono?.let {
+                                    val userId = UserDao().getIdUser(activity)
+
+                                    userId?.let {
+                                        vagaDono.candidaturas.add(userId)
+                                        VagaDao().salvarVagaUser(
+                                            vagaDono, activity,
+                                            isNovo = false,
+                                            isSalvarCv = true,
+                                            idUser = vagaDono.idDono!!
+                                        )
+                                    }
+                                }
                             }
                         }
                     }

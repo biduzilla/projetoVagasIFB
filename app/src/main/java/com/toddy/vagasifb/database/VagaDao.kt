@@ -146,37 +146,37 @@ class VagaDao {
     fun recuperarMinhaVaga(
         activity: Activity,
         idVaga: String,
+        idUser: String,
         progressBar: ProgressBar? = null,
         vagasRecuperada: (vaga: Vaga?) -> Unit
     ) {
-        UserDao().getIdUser(activity)?.let { idUser ->
-            FirebaseDatabase.getInstance().reference
-                .child("empregadores")
-                .child(idUser)
-                .child(idVaga)
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            vagasRecuperada(snapshot.getValue(Vaga::class.java))
-                            progressBar?.let {
-                                it.visibility = View.GONE
-                            }
 
-                        } else {
-                            Toast.makeText(
-                                activity.baseContext,
-                                "Vaga não encontrada",
-                                Toast.LENGTH_SHORT
-                            ).show()
+        FirebaseDatabase.getInstance().reference
+            .child("empregadores")
+            .child(idUser)
+            .child(idVaga)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        vagasRecuperada(snapshot.getValue(Vaga::class.java))
+                        progressBar?.let {
+                            it.visibility = View.GONE
                         }
-                    }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                    } else {
+                        Toast.makeText(
+                            activity.baseContext,
+                            "Vaga não encontrada",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+                }
 
-                })
-        }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
     }
 
 

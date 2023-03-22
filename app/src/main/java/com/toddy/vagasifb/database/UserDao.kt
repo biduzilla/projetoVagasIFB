@@ -209,7 +209,7 @@ class UserDao {
         }
     }
 
-    fun getTelefone(activity: Activity, telefone: (telefone: String) -> Unit) {
+    fun getUser(activity: Activity, userRecuperado: (userRecuperado: User) -> Unit) {
         getIdUser(activity)?.let { idUser ->
             FirebaseDatabase.getInstance().reference
                 .child("usuarios")
@@ -219,7 +219,7 @@ class UserDao {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
                             snapshot.getValue(User::class.java)?.let {
-                                it.telefone?.let(telefone)
+                                userRecuperado(it)
                             }
                         }
                     }

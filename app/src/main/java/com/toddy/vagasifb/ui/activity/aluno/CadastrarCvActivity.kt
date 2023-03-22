@@ -130,14 +130,14 @@ class CadastrarCvActivity : AppCompatActivity() {
                         }
                     }
 
-                    UserDao().getTelefone(activity = this@CadastrarCvActivity) {
-                        telefone = it
+                    UserDao().getUser(activity = this@CadastrarCvActivity) {
+
 
                         salvarCv(
                             Curriculo(
                                 nome = nome,
                                 email = UserDao().getEmailUser(this@CadastrarCvActivity),
-                                telefone = telefone,
+                                telefone = it.telefone,
                                 sobre = sobre,
                                 semestre = semestre,
                                 experiencias = experienciaLst,
