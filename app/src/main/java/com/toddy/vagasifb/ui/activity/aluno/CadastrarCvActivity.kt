@@ -49,7 +49,6 @@ class CadastrarCvActivity : AppCompatActivity() {
     private fun preencheDados(curriculo: Curriculo) {
         with(binding) {
             edtNome.setText(curriculo.nome)
-            edtTelefone.setText(curriculo.telefone)
             edtSobre.setText(curriculo.sobre)
             edtSemestre.setText(curriculo.semestre)
             edtExpeiencias.setText(
@@ -75,20 +74,16 @@ class CadastrarCvActivity : AppCompatActivity() {
     private fun validaDados() {
         with(binding) {
             val nome: String = edtNome.text.toString().trim()
-            val telefone: String = edtTelefone.text.toString().trim()
             val sobre: String = edtSobre.text.toString().trim()
             val semestre: String = edtSemestre.text.toString().trim()
             val experiencia: String = edtExpeiencias.text.toString().trim()
             val qualificacoes: String = edtQualificacoes.text.toString().trim()
+            var telefone: String
 
             when {
                 nome.isEmpty() -> {
                     edtNome.requestFocus()
                     edtNome.error = "Campo Obrigatório"
-                }
-                telefone.isEmpty() -> {
-                    edtTelefone.requestFocus()
-                    edtTelefone.error = "Campo Obrigatório"
                 }
                 sobre.isEmpty() -> {
                     edtSobre.requestFocus()
@@ -135,18 +130,23 @@ class CadastrarCvActivity : AppCompatActivity() {
                         }
                     }
 
-                    salvarCv(
-                        Curriculo(
-                            nome = nome,
-                            email = UserDao().getEmailUser(this@CadastrarCvActivity),
-                            telefone = telefone,
-                            sobre = sobre,
-                            semestre = semestre,
-                            experiencias = experienciaLst,
-                            qualificacoes = qualificacoesLst,
-                            historico = curriculo.historico
+                    UserDao().getTelefone(activity = this@CadastrarCvActivity) {
+                        telefone = it
+
+                        salvarCv(
+                            Curriculo(
+                                nome = nome,
+                                email = UserDao().getEmailUser(this@CadastrarCvActivity),
+                                telefone = telefone,
+                                sobre = sobre,
+                                semestre = semestre,
+                                experiencias = experienciaLst,
+                                qualificacoes = qualificacoesLst,
+                                historico = curriculo.historico
+                            )
                         )
-                    )
+                    }
+
                 }
             }
 

@@ -209,4 +209,26 @@ class UserDao {
         }
     }
 
+    fun getTelefone(activity: Activity, telefone: (telefone: String) -> Unit) {
+        getIdUser(activity)?.let { idUser ->
+            FirebaseDatabase.getInstance().reference
+                .child("usuarios")
+                .child("alunos")
+                .child(idUser)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            snapshot.getValue(User::class.java)?.let {
+                                it.telefone?.let(telefone)
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+        }
+    }
 }
