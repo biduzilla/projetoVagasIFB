@@ -39,6 +39,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun validaDados() {
         with(binding) {
+            progressBar.visibility = View.VISIBLE
+            btnLogin.visibility = View.GONE
+
             val email = edtEmail.text.toString().trim()
             val senha = edtSenha.text.toString().trim()
 
@@ -53,12 +56,10 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else -> {
                     ocultarTeclado()
-                    progressBar.visibility = View.VISIBLE
-                    btnLogin.visibility = View.GONE
 
                     SharedPref(this@LoginActivity).salvarDadosLogin(email, senha)
 
-                    login(email, senha)
+                    UserDao().login(this@LoginActivity, email, senha)
                 }
             }
         }
@@ -70,9 +71,4 @@ class LoginActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(binding.edtEmail.windowToken, 0)
     }
 
-    private fun login(email: String, senha: String) {
-        UserDao().login(this, email, senha)
-        binding.progressBar.visibility = View.GONE
-        binding.btnLogin.visibility = View.VISIBLE
-    }
 }

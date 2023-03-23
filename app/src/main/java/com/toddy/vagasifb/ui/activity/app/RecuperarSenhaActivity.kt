@@ -1,11 +1,10 @@
 package com.toddy.vagasifb.ui.activity.app
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.toddy.vagasifb.database.UserDao
 import com.toddy.vagasifb.databinding.ActivityRecuperarSenhaBinding
-import com.toddy.vagasifb.extensions.iniciaActivity
 
 class RecuperarSenhaActivity : AppCompatActivity() {
 

@@ -2,6 +2,7 @@ package com.toddy.vagasifb.database
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -9,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.toddy.vagasifb.databinding.ActivityLoginBinding
 import com.toddy.vagasifb.databinding.DialogUserLogarBinding
 import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.model.User
@@ -98,12 +100,21 @@ class UserDao {
             }
     }
 
-    fun login(activity: Activity, email: String, senha: String) {
+    fun login(
+        activity: Activity,
+        email: String,
+        senha: String,
+        binding: ActivityLoginBinding? = null
+    ) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     redirecionaAcesso(activity)
                 } else {
+                    binding?.let {
+                        it.progressBar.visibility = View.GONE
+                        it.btnLogin.visibility = View.VISIBLE
+                    }
                     Toast.makeText(
                         activity.baseContext,
                         FireBaseHelper.validaErros(task.exception.toString()),

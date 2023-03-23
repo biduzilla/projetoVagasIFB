@@ -16,10 +16,8 @@ import com.toddy.vagasifb.database.VagaDao
 import com.toddy.vagasifb.databinding.ActivityDetalhesVagaBinding
 import com.toddy.vagasifb.databinding.DialogDetalhesVagaDeletarBinding
 import com.toddy.vagasifb.databinding.DialogDetalhesVagaParticiparBinding
-import com.toddy.vagasifb.extensions.iniciaActivity
 import com.toddy.vagasifb.extensions.tentaCarregarImagem
 import com.toddy.vagasifb.model.Vaga
-import com.toddy.vagasifb.ui.activity.CHAVE_INSCRICOES
 import com.toddy.vagasifb.ui.activity.CHAVE_USER
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
