@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -31,6 +32,7 @@ import com.toddy.vagasifb.model.Vaga
 import com.toddy.vagasifb.ui.activity.ABRIR_CAMERA
 import com.toddy.vagasifb.ui.activity.ABRIR_GALERIA
 import com.toddy.vagasifb.ui.activity.CHAVE_VAGA
+import com.toddy.vagasifb.ui.activity.CHAVE_VAGA_ID
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -60,12 +62,23 @@ class FormVagaActivity : AppCompatActivity() {
     }
 
     private fun updateVaga() {
-        vaga = intent.getParcelableExtra(CHAVE_VAGA)
-        vaga?.let {
+        intent.getStringExtra(CHAVE_VAGA_ID)?.let { idVaga ->
             isUpdate = true
-            preencheDados(it)
             binding.toolbarVoltar.tvTitulo.text = "Atualizar Vaga"
             binding.btnSalvar.text = "Atualizar"
+
+            UserDao().getIdUser(this)?.let { idUser ->
+                VagaDao().recuperarMinhaVaga(this, idVaga, idUser) { vagaRecuperada ->
+                    vagaRecuperada?.let {
+                        vaga = it
+                        preencheDados(it)
+                    }
+                }
+            }
+
+        }
+        vaga?.let {
+            isUpdate = true
         }
     }
 
@@ -97,6 +110,7 @@ class FormVagaActivity : AppCompatActivity() {
     }
 
     private fun validaDados() {
+        Log.i("infoteste", isUpdate.toString())
         with(binding) {
             val cargo = edtCargo.text.toString().trim()
             val empresa = edtEmpresa.text.toString().trim()
@@ -136,7 +150,7 @@ class FormVagaActivity : AppCompatActivity() {
 
                     ocultarTeclado()
 
-                    val requisitosLst = requisitos.split(",").toMutableList()
+                    val requisitosLst = requisitos.split(".").toMutableList()
 
                     requisitosLst.forEach {
                         if (it.isEmpty()) {
@@ -144,7 +158,8 @@ class FormVagaActivity : AppCompatActivity() {
                         }
                     }
 
-                    if (vaga == null) {
+                    if (!isUpdate) {
+
                         vaga = Vaga(
                             "",
                             UserDao().getIdUser(this@FormVagaActivity),
@@ -158,14 +173,14 @@ class FormVagaActivity : AppCompatActivity() {
                             ""
                         )
                     } else {
+                        Log.i("infoteste", "ok")
                         vaga!!.cargo = cargo
                         vaga!!.empresa = empresa
                         vaga!!.descricao = descricao
                         vaga!!.horario = horario
                         vaga!!.requisitos = requisitosLst.toList()
                     }
-
-
+                    Log.i("infoteste", "vaga = $vaga")
                     if (vaga!!.id!!.isNotEmpty()) {
                         if (caminhoImagem != null) {
                             salvarImagemFirebase(vaga!!.id!!)

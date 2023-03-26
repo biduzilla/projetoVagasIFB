@@ -174,7 +174,7 @@ class DetalhesVagaActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menuEditar -> {
                     Intent(this, FormVagaActivity::class.java).apply {
-                        putExtra(CHAVE_VAGA, vaga)
+                        putExtra(CHAVE_VAGA_ID, vaga!!.id)
                         startActivity(this)
                         vaga = null
                     }

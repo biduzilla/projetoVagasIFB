@@ -11,6 +11,8 @@
 /build
 /captures
 /app/google-services.json
+/.gitignore
+app/google-services.json
 .externalNativeBuild
 .cxx
 local.properties
